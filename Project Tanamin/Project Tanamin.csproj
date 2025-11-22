@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="app\model\" />
-    <Folder Include="app\controller\" />
-    <Folder Include="app\dbconnect\" />
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
+    <PackageReference Include="Npgsql" Version="9.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>

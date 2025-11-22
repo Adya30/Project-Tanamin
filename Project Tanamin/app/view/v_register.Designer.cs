@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(v_register));
-            linkLabel1 = new LinkLabel();
-            button1 = new Button();
+            linklogin = new LinkLabel();
+            buttondaftar = new Button();
             nama_lengkap = new TextBox();
             username_register = new TextBox();
             no_telp = new TextBox();
@@ -38,26 +38,27 @@
             konfirmasi_password = new TextBox();
             SuspendLayout();
             // 
-            // linkLabel1
+            // linklogin
             // 
-            linkLabel1.AutoSize = true;
-            linkLabel1.BackColor = SystemColors.Window;
-            linkLabel1.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            linkLabel1.Location = new Point(1617, 757);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(83, 36);
-            linkLabel1.TabIndex = 1;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Login";
+            linklogin.AutoSize = true;
+            linklogin.BackColor = SystemColors.Window;
+            linklogin.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            linklogin.Location = new Point(1617, 757);
+            linklogin.Name = "linklogin";
+            linklogin.Size = new Size(83, 36);
+            linklogin.TabIndex = 1;
+            linklogin.TabStop = true;
+            linklogin.Text = "Login";
             // 
-            // button1
+            // buttondaftar
             // 
-            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
-            button1.Location = new Point(1315, 836);
-            button1.Name = "button1";
-            button1.Size = new Size(262, 88);
-            button1.TabIndex = 2;
-            button1.UseVisualStyleBackColor = true;
+            buttondaftar.BackgroundImage = (Image)resources.GetObject("buttondaftar.BackgroundImage");
+            buttondaftar.Location = new Point(1315, 836);
+            buttondaftar.Name = "buttondaftar";
+            buttondaftar.Size = new Size(262, 88);
+            buttondaftar.TabIndex = 2;
+            buttondaftar.UseVisualStyleBackColor = true;
+            buttondaftar.Click += buttondaftar_Click;
             // 
             // nama_lengkap
             // 
@@ -110,8 +111,8 @@
             Controls.Add(no_telp);
             Controls.Add(username_register);
             Controls.Add(nama_lengkap);
-            Controls.Add(button1);
-            Controls.Add(linkLabel1);
+            Controls.Add(buttondaftar);
+            Controls.Add(linklogin);
             Name = "v_register";
             Text = "register";
             ResumeLayout(false);
@@ -119,8 +120,8 @@
         }
 
         #endregion
-        private LinkLabel linkLabel1;
-        private Button button1;
+        private LinkLabel linklogin;
+        private Button buttondaftar;
         private TextBox nama_lengkap;
         private TextBox username_register;
         private TextBox no_telp;

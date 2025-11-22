@@ -29,32 +29,32 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(v_login));
-            username = new TextBox();
-            password = new TextBox();
+            login_username = new TextBox();
+            login_password = new TextBox();
             linkLabel1 = new LinkLabel();
             linkdaftar = new LinkLabel();
-            button1 = new Button();
+            btnlogin = new Button();
             SuspendLayout();
             // 
-            // username
+            // login_username
             // 
-            username.BorderStyle = BorderStyle.None;
-            username.Cursor = Cursors.IBeam;
-            username.Font = new Font("Segoe UI", 13F);
-            username.Location = new Point(1199, 397);
-            username.Name = "username";
-            username.Size = new Size(491, 35);
-            username.TabIndex = 0;
+            login_username.BorderStyle = BorderStyle.None;
+            login_username.Cursor = Cursors.IBeam;
+            login_username.Font = new Font("Segoe UI", 13F);
+            login_username.Location = new Point(1199, 397);
+            login_username.Name = "login_username";
+            login_username.Size = new Size(491, 35);
+            login_username.TabIndex = 0;
             // 
-            // password
+            // login_password
             // 
-            password.BorderStyle = BorderStyle.None;
-            password.Cursor = Cursors.IBeam;
-            password.Font = new Font("Segoe UI", 13F);
-            password.Location = new Point(1199, 588);
-            password.Name = "password";
-            password.Size = new Size(491, 35);
-            password.TabIndex = 1;
+            login_password.BorderStyle = BorderStyle.None;
+            login_password.Cursor = Cursors.IBeam;
+            login_password.Font = new Font("Segoe UI", 13F);
+            login_password.Location = new Point(1199, 588);
+            login_password.Name = "login_password";
+            login_password.Size = new Size(491, 35);
+            login_password.TabIndex = 1;
             // 
             // linkLabel1
             // 
@@ -82,17 +82,18 @@
             linkdaftar.TabStop = true;
             linkdaftar.Text = "Daftar";
             // 
-            // button1
+            // btnlogin
             // 
-            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
-            button1.BackgroundImageLayout = ImageLayout.None;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.Location = new Point(1314, 761);
-            button1.Name = "button1";
-            button1.Size = new Size(265, 92);
-            button1.TabIndex = 4;
-            button1.UseVisualStyleBackColor = true;
+            btnlogin.BackgroundImage = (Image)resources.GetObject("btnlogin.BackgroundImage");
+            btnlogin.BackgroundImageLayout = ImageLayout.None;
+            btnlogin.Cursor = Cursors.Hand;
+            btnlogin.FlatAppearance.BorderSize = 0;
+            btnlogin.Location = new Point(1314, 761);
+            btnlogin.Name = "btnlogin";
+            btnlogin.Size = new Size(265, 92);
+            btnlogin.TabIndex = 4;
+            btnlogin.UseVisualStyleBackColor = true;
+            btnlogin.Click += btnlogin_Click;
             // 
             // v_login
             // 
@@ -100,11 +101,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
-            Controls.Add(button1);
+            Controls.Add(btnlogin);
             Controls.Add(linkdaftar);
             Controls.Add(linkLabel1);
-            Controls.Add(password);
-            Controls.Add(username);
+            Controls.Add(login_password);
+            Controls.Add(login_username);
             Name = "v_login";
             Text = "login";
             ResumeLayout(false);
@@ -113,10 +114,10 @@
 
         #endregion
 
-        private TextBox username;
-        private TextBox password;
+        private TextBox login_username;
+        private TextBox login_password;
         private LinkLabel linkLabel1;
         private LinkLabel linkdaftar;
-        private Button button1;
+        private Button btnlogin;
     }
 }
