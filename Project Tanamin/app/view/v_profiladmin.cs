@@ -1,12 +1,5 @@
 ﻿using Project_Tanamin.app.controller;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
@@ -17,8 +10,17 @@ namespace Project_Tanamin.app.view
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            labelusername.Text = c_user.Username;
-            labelpassword.Text = c_user.Password;
+
+            if (c_user.CurrentUser != null)
+            {
+                labelusername.Text = c_user.CurrentUser.Username;
+                labelpassword.Text = c_user.CurrentUser.Password;
+            }
+            else
+            {
+                labelusername.Text = "-";
+                labelpassword.Text = "-";
+            }
         }
 
         private void btnkatalaogadmin_Click(object sender, EventArgs e)
@@ -49,7 +51,10 @@ namespace Project_Tanamin.app.view
             this.Close();
         }
 
-        private void btnprofiladmin_Click(object sender, EventArgs e){}
+        private void btnprofiladmin_Click(object sender, EventArgs e)
+        {
+           
+        }
 
         private void btneditprofiladmin_Click(object sender, EventArgs e)
         {
@@ -60,12 +65,18 @@ namespace Project_Tanamin.app.view
 
         private void btnlogout_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Logout",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show(
+                "Apakah Anda yakin ingin keluar?",
+                "Konfirmasi Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
 
             if (result == DialogResult.Yes)
             {
+                c_user controller = new c_user();
+                controller.Logout();
+
                 v_login loginForm = new v_login();
                 loginForm.Show();
                 this.Close();

@@ -28,12 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "v_pesanancustomer";
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(v_pesanancustomer));
+            dgvPesanan = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvPesanan).BeginInit();
+            SuspendLayout();
+            // 
+            // dgvPesanan
+            // 
+            dgvPesanan.BackgroundColor = SystemColors.Window;
+            dgvPesanan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPesanan.Location = new Point(421, 199);
+            dgvPesanan.Name = "dgvPesanan";
+            dgvPesanan.RowHeadersWidth = 62;
+            dgvPesanan.Size = new Size(1434, 813);
+            dgvPesanan.TabIndex = 0;
+            // 
+            // v_pesanancustomer
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1924, 1050);
+            Controls.Add(dgvPesanan);
+            Name = "v_pesanancustomer";
+            Text = "v_pesanancustomer";
+            ((System.ComponentModel.ISupportInitialize)dgvPesanan).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView dgvPesanan;
     }
 }

@@ -1,21 +1,243 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using Project_Tanamin.app.controller;
+using Project_Tanamin.app.model;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
 {
     public partial class v_katalogadmin : Form
     {
+        private c_produk ctrlProduk;
+
         public v_katalogadmin()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+
+            ctrlProduk = new c_produk();
+            LoadKatalog();
+        }
+
+        public void LoadKatalog()
+        {
+            panelflow.Controls.Clear(); 
+
+            var listProduk = ctrlProduk.GetProdukList();
+
+            foreach (var p in listProduk)
+            {
+                var card = CreateCard(p);
+                panelflow.Controls.Add(card);
+            }
+        }
+
+        private Panel CreateCard(m_produk produk)
+        {
+            Panel card = new Panel
+            {
+                Width = 260,
+                Height = 380,
+                BorderStyle = BorderStyle.FixedSingle,
+                Margin = new Padding(10),
+                BackColor = Color.White
+            };
+
+            PictureBox pic = new PictureBox
+            {
+                Width = card.Width - 20,
+                Height = 140,
+                Top = 10,
+                Left = 10,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            if (produk.FotoProduk != null)
+            {
+                using (var ms = new System.IO.MemoryStream(produk.FotoProduk))
+                {
+                    pic.Image = Image.FromStream(ms);
+                }
+            }
+
+            Label lblNama = new Label
+            {
+                Text = produk.NamaProduk,
+                Top = pic.Bottom + 15,       
+                Left = 10,
+                Width = card.Width - 20,
+                Font = new Font("Arial", 11, FontStyle.Bold),
+                AutoEllipsis = true
+            };
+
+            Label lblKategori = new Label
+            {
+                Text = "Kategori: " + produk.NamaKategori,
+                Top = lblNama.Bottom + 5,
+                Left = 10,
+                Width = card.Width - 20,
+                Font = new Font("Arial", 9, FontStyle.Italic),
+                ForeColor = Color.DarkBlue,
+                AutoEllipsis = true
+            };
+
+            Label lblStok = new Label
+            {
+                Text = "Stok: " + produk.StokProduk,
+                Top = lblNama.Bottom + 5, 
+                Left = 10,
+                Width = card.Width - 20,
+                ForeColor = produk.StokProduk == 0 ? Color.Red : Color.Black
+            };
+
+            Label lblHarga = new Label
+            {
+                Text = "Harga: Rp." + produk.HargaSatuan,
+                Top = lblStok.Bottom + 5,    
+                Left = 10,
+                Width = card.Width - 20,
+                ForeColor = Color.DarkGreen,
+                Font = new Font("Arial", 10, FontStyle.Bold)
+            };
+
+            Label lblDeskripsi = new Label
+            {
+                Text = produk.Deskripsi,
+                Top = lblHarga.Bottom + 5, 
+                Left = 10,
+                Width = card.Width - 20,
+                Height = 60,
+                AutoEllipsis = true
+            };
+
+            card.Controls.Add(pic);
+            card.Controls.Add(lblNama);
+            card.Controls.Add(lblKategori);
+            card.Controls.Add(lblStok);
+            card.Controls.Add(lblHarga);
+            card.Controls.Add(lblDeskripsi);
+
+            if (produk.IsDeleted)
+            {
+                Label lblStatus = new Label
+                {
+                    Text = "Stok Habis",
+                    Top = lblDeskripsi.Bottom + 5, 
+                    Left = 10,
+                    ForeColor = Color.Red,
+                    Width = card.Width - 20,
+                    Font = new Font("Arial", 9, FontStyle.Bold)
+                };
+                card.Controls.Add(lblStatus);
+            }
+
+            Button btnEdit = new Button
+            {
+                Text = "Edit",
+                Width = 110,
+                Height = 35,
+                Top = card.Height - 70, 
+                Left = 10,
+                BackColor = Color.MediumSeaGreen,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnEdit.Click += (s, e) =>
+            {
+                var editForm = new v_tambahkatalog(this, produk);
+                editForm.Show();
+                this.Hide();
+            };
+
+            Button btnHardDelete = new Button
+            {
+                Text = "Hapus",
+                Width = 110,
+                Height = 35,
+                Top = card.Height - 70,
+                Left = 135,
+                BackColor = Color.IndianRed,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnHardDelete.Click += (s, e) =>
+            {
+                var confirm = MessageBox.Show($"Hard delete produk {produk.NamaProduk}? (hapus permanen)", "Konfirmasi", MessageBoxButtons.YesNo);
+                if (confirm == DialogResult.Yes)
+                {
+                    if (ctrlProduk.HardDeleteProduk(produk.IdProduk))
+                    {
+                        MessageBox.Show("Produk berhasil dihapus permanen");
+                        LoadKatalog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Gagal hapus produk");
+                    }
+                }
+            };
+
+            card.Controls.Add(btnEdit);
+            card.Controls.Add(btnHardDelete);
+
+            return card;
+        }
+
+        private void btnTambah_Click_1(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Apakah Anda ingin menambahkan produk baru?", "Konfirmasi",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                var tambahForm = new v_tambahkatalog(this);
+                tambahForm.Show();
+                this.Hide();
+            }
+        }
+
+        private void btnkatalogadmin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnpesananadmin_Click(object sender, EventArgs e)
+        {
+            new v_pesananadmin().Show();
+            this.Close();
+        }
+
+        private void btnriwayatadmin_Click(object sender, EventArgs e)
+        {
+            new v_riwayatadmin().Show();
+            this.Close();
+        }
+
+        private void btnfeedbackadmin_Click(object sender, EventArgs e)
+        {
+            new v_feedbackadmin().Show();
+            this.Close();
+        }
+
+        private void btnprofiladmin_Click(object sender, EventArgs e)
+        {
+            new v_editprofiladmin().Show();
+            this.Close();
+        }
+
+        private void btnlogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Apakah Anda yakin ingin keluar?",
+                "Konfirmasi Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                new v_login().Show();
+                this.Close();
+            }
         }
     }
 }

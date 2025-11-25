@@ -1,4 +1,6 @@
 ﻿using Project_Tanamin.app.controller;
+using System;
+using System.Windows.Forms;
 
 namespace Project_Tanamin.view
 {
@@ -10,6 +12,7 @@ namespace Project_Tanamin.view
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+
             linklogin.LinkClicked += Linkloginclick;
             controller = new c_user();
         }
@@ -22,7 +25,7 @@ namespace Project_Tanamin.view
         public void OpenLoginForm()
         {
             new v_login().Show();
-            this.Close(); 
+            this.Close();
         }
 
         private void buttondaftar_Click(object sender, EventArgs e)
@@ -39,12 +42,22 @@ namespace Project_Tanamin.view
                 return;
             }
 
-            string result = controller.Register(namaLengkap, username, noTelp, password, konfirmasi);
+            if (username.ToLower() == "admin")
+            {
+                MessageBox.Show("Username 'admin' tidak boleh digunakan!");
+                return;
+            }
+
+            string result = controller.RegisterCustomer(
+                namaLengkap, username, noTelp, password, konfirmasi);
 
             if (result == "Pendaftaran Berhasil")
             {
-                MessageBox.Show("Akun berhasil dibuat!");
-                OpenLoginForm();
+                MessageBox.Show("Akun berhasil dibuat! Silakan login.");
+                v_login loginForm = new v_login();
+                loginForm.Show();
+                this.Close();
+
             }
             else
             {

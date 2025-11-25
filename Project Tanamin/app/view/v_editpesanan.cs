@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
 {
-    public partial class v_tambahfeedbackcustomer : Form
+    public partial class v_editpesanan : Form
     {
-        public v_tambahfeedbackcustomer()
+        public v_editpesanan()
         {
             InitializeComponent();
         }

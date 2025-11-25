@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Project_Tanamin.app.model
+﻿public class User
 {
-    public class m_user
-    {
-        public int id_user { get; set; }
-        public string username { get; set; }
-        public string passwords { get; set; }
-        public string nama_lengkap { get; set; }
-        public string no_telp { get; set; }
-        public bool is_admin { get; set; }
+    public int IdUser { get; set; }
+    public string NamaLengkap { get; set; }
+    public string Username { get; set; }
+    public string NoTelp { get; set; }
+    public string Password { get; set; }
+    public virtual bool IsAdmin { get; }
+}
 
-    }
+public class Admin : User
+{
+    public override bool IsAdmin => true;
+}
 
+public class Customer : User
+{
+    public override bool IsAdmin => false;
 }

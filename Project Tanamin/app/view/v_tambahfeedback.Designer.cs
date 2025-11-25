@@ -1,6 +1,6 @@
 ﻿namespace Project_Tanamin.app.view
 {
-    partial class v_katalogcustomer
+    partial class v_tambahfeedback
     {
         /// <summary>
         /// Required designer variable.
@@ -28,152 +28,152 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(v_katalogcustomer));
-            panelflow = new FlowLayoutPanel();
-            panel1 = new Panel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(v_tambahfeedback));
+            datetimefeedback = new DateTimePicker();
+            richTextBoxpertanyaan = new RichTextBox();
             btnlogout = new Button();
             btnprofilcustomer = new Button();
             btnfeedbackcustomer = new Button();
             btnriwayatcustomer = new Button();
             btnpesanancustomer = new Button();
             btnkatalaogcustomer = new Button();
-            btnbayar = new Button();
-            panelRingkasan = new Panel();
-            panelflow.SuspendLayout();
+            btnbatal = new Button();
+            btnsimpan = new Button();
             SuspendLayout();
             // 
-            // panelflow
+            // datetimefeedback
             // 
-            panelflow.BackColor = Color.Transparent;
-            panelflow.Controls.Add(panel1);
-            panelflow.Location = new Point(413, 188);
-            panelflow.Name = "panelflow";
-            panelflow.Size = new Size(1040, 803);
-            panelflow.TabIndex = 8;
+            datetimefeedback.CalendarFont = new Font("Segoe UI", 15F);
+            datetimefeedback.Font = new Font("Segoe UI", 13F);
+            datetimefeedback.Location = new Point(996, 399);
+            datetimefeedback.Name = "datetimefeedback";
+            datetimefeedback.Size = new Size(415, 42);
+            datetimefeedback.TabIndex = 0;
             // 
-            // panel1
+            // richTextBoxpertanyaan
             // 
-            panel1.Location = new Point(3, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(296, 348);
-            panel1.TabIndex = 0;
+            richTextBoxpertanyaan.BorderStyle = BorderStyle.None;
+            richTextBoxpertanyaan.Cursor = Cursors.IBeam;
+            richTextBoxpertanyaan.Location = new Point(996, 540);
+            richTextBoxpertanyaan.Name = "richTextBoxpertanyaan";
+            richTextBoxpertanyaan.Size = new Size(769, 344);
+            richTextBoxpertanyaan.TabIndex = 1;
+            richTextBoxpertanyaan.Text = "";
             // 
             // btnlogout
             // 
             btnlogout.BackgroundImage = (Image)resources.GetObject("btnlogout.BackgroundImage");
             btnlogout.Cursor = Cursors.Hand;
-            btnlogout.Location = new Point(21, 937);
+            btnlogout.Location = new Point(21, 936);
             btnlogout.Name = "btnlogout";
             btnlogout.Size = new Size(340, 64);
             btnlogout.TabIndex = 23;
             btnlogout.UseVisualStyleBackColor = true;
-            btnlogout.Click += btnlogout_Click;
             // 
             // btnprofilcustomer
             // 
             btnprofilcustomer.BackgroundImage = (Image)resources.GetObject("btnprofilcustomer.BackgroundImage");
             btnprofilcustomer.Cursor = Cursors.Hand;
-            btnprofilcustomer.Location = new Point(21, 523);
+            btnprofilcustomer.Location = new Point(21, 522);
             btnprofilcustomer.Name = "btnprofilcustomer";
             btnprofilcustomer.Size = new Size(340, 64);
             btnprofilcustomer.TabIndex = 22;
             btnprofilcustomer.UseVisualStyleBackColor = true;
-            btnprofilcustomer.Click += btnprofilcustomer_Click;
             // 
             // btnfeedbackcustomer
             // 
             btnfeedbackcustomer.BackgroundImage = (Image)resources.GetObject("btnfeedbackcustomer.BackgroundImage");
             btnfeedbackcustomer.Cursor = Cursors.Hand;
-            btnfeedbackcustomer.Location = new Point(21, 444);
+            btnfeedbackcustomer.Location = new Point(21, 443);
             btnfeedbackcustomer.Name = "btnfeedbackcustomer";
             btnfeedbackcustomer.Size = new Size(340, 64);
             btnfeedbackcustomer.TabIndex = 21;
             btnfeedbackcustomer.UseVisualStyleBackColor = true;
-            btnfeedbackcustomer.Click += btnfeedbackcustomer_Click;
             // 
             // btnriwayatcustomer
             // 
             btnriwayatcustomer.BackgroundImage = (Image)resources.GetObject("btnriwayatcustomer.BackgroundImage");
             btnriwayatcustomer.Cursor = Cursors.Hand;
-            btnriwayatcustomer.Location = new Point(21, 362);
+            btnriwayatcustomer.Location = new Point(21, 361);
             btnriwayatcustomer.Name = "btnriwayatcustomer";
             btnriwayatcustomer.Size = new Size(340, 64);
             btnriwayatcustomer.TabIndex = 20;
             btnriwayatcustomer.UseVisualStyleBackColor = true;
-            btnriwayatcustomer.Click += btnriwayatcustomer_Click;
             // 
             // btnpesanancustomer
             // 
             btnpesanancustomer.BackgroundImage = (Image)resources.GetObject("btnpesanancustomer.BackgroundImage");
             btnpesanancustomer.Cursor = Cursors.Hand;
-            btnpesanancustomer.Location = new Point(21, 281);
+            btnpesanancustomer.Location = new Point(21, 280);
             btnpesanancustomer.Name = "btnpesanancustomer";
             btnpesanancustomer.Size = new Size(340, 64);
             btnpesanancustomer.TabIndex = 19;
             btnpesanancustomer.UseVisualStyleBackColor = true;
-            btnpesanancustomer.Click += btnpesanancustomer_Click;
             // 
             // btnkatalaogcustomer
             // 
             btnkatalaogcustomer.BackgroundImage = (Image)resources.GetObject("btnkatalaogcustomer.BackgroundImage");
             btnkatalaogcustomer.Cursor = Cursors.Hand;
-            btnkatalaogcustomer.Location = new Point(21, 196);
+            btnkatalaogcustomer.Location = new Point(21, 195);
             btnkatalaogcustomer.Name = "btnkatalaogcustomer";
             btnkatalaogcustomer.Size = new Size(340, 64);
             btnkatalaogcustomer.TabIndex = 18;
             btnkatalaogcustomer.UseVisualStyleBackColor = true;
-            btnkatalaogcustomer.Click += btnkatalaogcustomer_Click;
             // 
-            // btnbayar
+            // btnbatal
             // 
-            btnbayar.Cursor = Cursors.Hand;
-            btnbayar.Location = new Point(1650, 31);
-            btnbayar.Name = "btnbayar";
-            btnbayar.Size = new Size(223, 67);
-            btnbayar.TabIndex = 24;
-            btnbayar.UseVisualStyleBackColor = true;
-            btnbayar.Click += btnbayar_Click;
+            btnbatal.BackgroundImage = (Image)resources.GetObject("btnbatal.BackgroundImage");
+            btnbatal.Cursor = Cursors.Hand;
+            btnbatal.Location = new Point(1660, 46);
+            btnbatal.Name = "btnbatal";
+            btnbatal.Size = new Size(203, 63);
+            btnbatal.TabIndex = 25;
+            btnbatal.UseVisualStyleBackColor = true;
+            btnbatal.Click += btnbatal_Click;
             // 
-            // panelRingkasan
+            // btnsimpan
             // 
-            panelRingkasan.BackColor = Color.Transparent;
-            panelRingkasan.Location = new Point(1459, 188);
-            panelRingkasan.Name = "panelRingkasan";
-            panelRingkasan.Size = new Size(431, 803);
-            panelRingkasan.TabIndex = 1;
+            btnsimpan.BackgroundImage = (Image)resources.GetObject("btnsimpan.BackgroundImage");
+            btnsimpan.Cursor = Cursors.Hand;
+            btnsimpan.Location = new Point(1410, 46);
+            btnsimpan.Name = "btnsimpan";
+            btnsimpan.Size = new Size(203, 63);
+            btnsimpan.TabIndex = 24;
+            btnsimpan.UseVisualStyleBackColor = true;
+            btnsimpan.Click += btnsimpan_Click;
             // 
-            // v_katalogcustomer
+            // v_tambahfeedback
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
-            Controls.Add(btnbayar);
-            Controls.Add(panelRingkasan);
+            Controls.Add(btnbatal);
+            Controls.Add(btnsimpan);
             Controls.Add(btnlogout);
             Controls.Add(btnprofilcustomer);
             Controls.Add(btnfeedbackcustomer);
             Controls.Add(btnriwayatcustomer);
             Controls.Add(btnpesanancustomer);
             Controls.Add(btnkatalaogcustomer);
-            Controls.Add(panelflow);
-            Name = "v_katalogcustomer";
-            Text = "v_katalogcustomer";
-            panelflow.ResumeLayout(false);
+            Controls.Add(richTextBoxpertanyaan);
+            Controls.Add(datetimefeedback);
+            Name = "v_tambahfeedback";
+            Text = "v_tambahfeedback";
             ResumeLayout(false);
         }
 
         #endregion
 
-        private FlowLayoutPanel panelflow;
-        private Panel panel1;
+        private DateTimePicker datetimefeedback;
+        private RichTextBox richTextBoxpertanyaan;
         private Button btnlogout;
         private Button btnprofilcustomer;
         private Button btnfeedbackcustomer;
         private Button btnriwayatcustomer;
         private Button btnpesanancustomer;
         private Button btnkatalaogcustomer;
-        private Button btnbayar;
-        private Panel panelRingkasan;
+        private Button btnbatal;
+        private Button btnsimpan;
     }
 }

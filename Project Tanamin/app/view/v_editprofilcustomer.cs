@@ -1,4 +1,5 @@
 ﻿using Project_Tanamin.app.controller;
+using Project_Tanamin.app.model;
 using System;
 using System.Windows.Forms;
 
@@ -6,15 +7,29 @@ namespace Project_Tanamin.app.view
 {
     public partial class v_editprofilcustomer : Form
     {
+        private c_user ctrl;
+
         public v_editprofilcustomer()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            Namalengkap.Text = c_user.NamaLengkap;
-            Username.Text = c_user.Username;
-            no_telp.Text = c_user.NoTelp;
-            Password.Text = c_user.Password;
-            konfirmasipassword.Text = c_user.Password;
+
+
+            ctrl = new c_user();
+
+            LoadUserToFields();
+        }
+
+        private void LoadUserToFields()
+        {
+            if (c_user.CurrentUser != null)
+            {
+                Namalengkap.Text = c_user.CurrentUser.NamaLengkap;
+                Username.Text = c_user.CurrentUser.Username;
+                no_telp.Text = c_user.CurrentUser.NoTelp;
+                Password.Text = c_user.CurrentUser.Password;
+                konfirmasipassword.Text = c_user.CurrentUser.Password;
+            }
         }
 
         private void btnkatalaogcustomer_Click(object sender, EventArgs e)
@@ -23,9 +38,13 @@ namespace Project_Tanamin.app.view
             this.Close();
         }
 
+        private int? userId = c_user.CurrentUser?.IdUser; // misal diambil dari login
+        private List<(m_produk produk, int jumlah)> keranjangSementara = new List<(m_produk, int)>(); // keranjang sementara
+
         private void btnpesanancustomer_Click(object sender, EventArgs e)
         {
-            new v_pesanancustomer().Show();
+            var formPesanan = new v_pesanancustomer();
+            formPesanan.Show();
             this.Close();
         }
 
@@ -48,6 +67,7 @@ namespace Project_Tanamin.app.view
             if (MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Logout",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                ctrl.Logout(); 
                 new v_login().Show();
                 this.Close();
             }
@@ -60,9 +80,8 @@ namespace Project_Tanamin.app.view
             string telp = no_telp.Text.Trim();
             string pass = Password.Text;
             string konfir = konfirmasipassword.Text;
-           
-            c_user ctrl = new c_user();
-            string result = ctrl.UpdateProfile(c_user.IdUser, nama, user, telp, pass, konfir);
+
+            string result = ctrl.UpdateProfile(nama, user, telp, pass, konfir);
 
             MessageBox.Show(result, "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

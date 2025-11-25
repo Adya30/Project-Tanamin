@@ -12,6 +12,7 @@ namespace Project_Tanamin.app.model
         public int jumlah_transaksi { get; set; }
         public int? id_transaksi { get; set; }
         public int? id_produk { get; set; }
+        public int harga_satuan { get; set; }
     }
 
 }

@@ -1,12 +1,6 @@
 ﻿using Project_Tanamin.app.controller;
+using Project_Tanamin.app.model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
@@ -17,44 +11,52 @@ namespace Project_Tanamin.app.view
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            label1.Text = c_user.NamaLengkap;
-            label2.Text = c_user.Username;
-            label3.Text = c_user.NoTelp;
-            label4.Text = c_user.Password;
+
+            LoadUserInfo();
+        }
+
+        private void LoadUserInfo()
+        {
+            if (c_user.CurrentUser != null)
+            {
+                label1.Text = c_user.CurrentUser.NamaLengkap;
+                label2.Text = c_user.CurrentUser.Username;
+                label3.Text = c_user.CurrentUser.NoTelp;
+                label4.Text = c_user.CurrentUser.Password;
+            }
         }
 
         private void btnedit_Click(object sender, EventArgs e)
         {
-            v_editprofilcustomer editprofiladmin = new v_editprofilcustomer();
-            editprofiladmin.Show();
+            new v_editprofilcustomer().Show();
             this.Close();
         }
 
         private void btnkatalaogcustomer_Click(object sender, EventArgs e)
         {
-            v_katalogcustomer katalogcustomer = new v_katalogcustomer();
-            katalogcustomer.Show();
+            new v_katalogcustomer().Show();
             this.Close();
         }
 
+        private int? userId = c_user.CurrentUser?.IdUser; // misal diambil dari login
+        private List<(m_produk produk, int jumlah)> keranjangSementara = new List<(m_produk, int)>(); // keranjang sementara
+
         private void btnpesanancustomer_Click(object sender, EventArgs e)
         {
-            v_pesanancustomer pesanancustomer = new v_pesanancustomer();
-            pesanancustomer.Show();
+            var formPesanan = new v_pesanancustomer();
+            formPesanan.Show();
             this.Close();
         }
 
         private void btnriwayatcustomer_Click(object sender, EventArgs e)
         {
-            v_riwayatcustomer riwayatcustomer = new v_riwayatcustomer();
-            riwayatcustomer.Show();
+            new v_riwayatcustomer().Show();
             this.Close();
         }
 
         private void btnfeedbackcustomer_Click(object sender, EventArgs e)
         {
-            v_feedbackcustomer feedbackcustomer = new v_feedbackcustomer();
-            feedbackcustomer.Show();
+            new v_feedbackcustomer().Show();
             this.Close();
         }
 
@@ -68,6 +70,9 @@ namespace Project_Tanamin.app.view
             if (MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Logout",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                c_user controller = new c_user();
+                controller.Logout();
+
                 new v_login().Show();
                 this.Close();
             }

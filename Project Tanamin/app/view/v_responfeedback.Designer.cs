@@ -1,6 +1,6 @@
 ﻿namespace Project_Tanamin.app.view
 {
-    partial class v_pesananadmin
+    partial class v_responfeedback
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(v_pesananadmin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(v_responfeedback));
             btnlogout = new Button();
             btnprofiladmin = new Button();
             btnfeedbackadmin = new Button();
             btnriwayatadmin = new Button();
             btnpesananadmin = new Button();
             btnkatalaogadmin = new Button();
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            richTextBox1 = new RichTextBox();
+            dateTimePicker1 = new DateTimePicker();
+            richTextBox2 = new RichTextBox();
+            btnsimpan = new Button();
+            btnbatal = new Button();
             SuspendLayout();
             // 
             // btnlogout
             // 
             btnlogout.BackgroundImage = (Image)resources.GetObject("btnlogout.BackgroundImage");
             btnlogout.Cursor = Cursors.Hand;
-            btnlogout.Location = new Point(22, 935);
+            btnlogout.Location = new Point(23, 935);
             btnlogout.Name = "btnlogout";
             btnlogout.Size = new Size(340, 64);
-            btnlogout.TabIndex = 29;
+            btnlogout.TabIndex = 17;
             btnlogout.UseVisualStyleBackColor = true;
             btnlogout.Click += btnlogout_Click;
             // 
@@ -54,10 +57,10 @@
             // 
             btnprofiladmin.BackgroundImage = (Image)resources.GetObject("btnprofiladmin.BackgroundImage");
             btnprofiladmin.Cursor = Cursors.Hand;
-            btnprofiladmin.Location = new Point(22, 521);
+            btnprofiladmin.Location = new Point(23, 522);
             btnprofiladmin.Name = "btnprofiladmin";
             btnprofiladmin.Size = new Size(340, 64);
-            btnprofiladmin.TabIndex = 28;
+            btnprofiladmin.TabIndex = 16;
             btnprofiladmin.UseVisualStyleBackColor = true;
             btnprofiladmin.Click += btnprofiladmin_Click;
             // 
@@ -65,10 +68,10 @@
             // 
             btnfeedbackadmin.BackgroundImage = (Image)resources.GetObject("btnfeedbackadmin.BackgroundImage");
             btnfeedbackadmin.Cursor = Cursors.Hand;
-            btnfeedbackadmin.Location = new Point(22, 442);
+            btnfeedbackadmin.Location = new Point(23, 442);
             btnfeedbackadmin.Name = "btnfeedbackadmin";
             btnfeedbackadmin.Size = new Size(340, 64);
-            btnfeedbackadmin.TabIndex = 27;
+            btnfeedbackadmin.TabIndex = 15;
             btnfeedbackadmin.UseVisualStyleBackColor = true;
             btnfeedbackadmin.Click += btnfeedbackadmin_Click;
             // 
@@ -76,10 +79,10 @@
             // 
             btnriwayatadmin.BackgroundImage = (Image)resources.GetObject("btnriwayatadmin.BackgroundImage");
             btnriwayatadmin.Cursor = Cursors.Hand;
-            btnriwayatadmin.Location = new Point(22, 360);
+            btnriwayatadmin.Location = new Point(23, 360);
             btnriwayatadmin.Name = "btnriwayatadmin";
             btnriwayatadmin.Size = new Size(340, 64);
-            btnriwayatadmin.TabIndex = 26;
+            btnriwayatadmin.TabIndex = 14;
             btnriwayatadmin.UseVisualStyleBackColor = true;
             btnriwayatadmin.Click += btnriwayatadmin_Click;
             // 
@@ -87,10 +90,10 @@
             // 
             btnpesananadmin.BackgroundImage = (Image)resources.GetObject("btnpesananadmin.BackgroundImage");
             btnpesananadmin.Cursor = Cursors.Hand;
-            btnpesananadmin.Location = new Point(22, 279);
+            btnpesananadmin.Location = new Point(23, 279);
             btnpesananadmin.Name = "btnpesananadmin";
             btnpesananadmin.Size = new Size(340, 64);
-            btnpesananadmin.TabIndex = 25;
+            btnpesananadmin.TabIndex = 13;
             btnpesananadmin.UseVisualStyleBackColor = true;
             btnpesananadmin.Click += btnpesananadmin_Click;
             // 
@@ -98,39 +101,82 @@
             // 
             btnkatalaogadmin.BackgroundImage = (Image)resources.GetObject("btnkatalaogadmin.BackgroundImage");
             btnkatalaogadmin.Cursor = Cursors.Hand;
-            btnkatalaogadmin.Location = new Point(22, 194);
+            btnkatalaogadmin.Location = new Point(23, 194);
             btnkatalaogadmin.Name = "btnkatalaogadmin";
             btnkatalaogadmin.Size = new Size(340, 64);
-            btnkatalaogadmin.TabIndex = 24;
+            btnkatalaogadmin.TabIndex = 12;
             btnkatalaogadmin.UseVisualStyleBackColor = true;
             btnkatalaogadmin.Click += btnkatalaogadmin_Click;
             // 
-            // dataGridView1
+            // richTextBox1
             // 
-            dataGridView1.BackgroundColor = SystemColors.Window;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(416, 186);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(1463, 829);
-            dataGridView1.TabIndex = 30;
+            richTextBox1.BorderStyle = BorderStyle.None;
+            richTextBox1.Font = new Font("Segoe UI", 13F);
+            richTextBox1.Location = new Point(1139, 539);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(539, 343);
+            richTextBox1.TabIndex = 20;
+            richTextBox1.Text = "";
             // 
-            // v_pesananadmin
+            // dateTimePicker1
+            // 
+            dateTimePicker1.AccessibleRole = AccessibleRole.IpAddress;
+            dateTimePicker1.CalendarFont = new Font("Segoe UI", 15F);
+            dateTimePicker1.Location = new Point(441, 265);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(300, 31);
+            dateTimePicker1.TabIndex = 21;
+            // 
+            // richTextBox2
+            // 
+            richTextBox2.BorderStyle = BorderStyle.None;
+            richTextBox2.Font = new Font("Segoe UI", 13F);
+            richTextBox2.Location = new Point(441, 539);
+            richTextBox2.Name = "richTextBox2";
+            richTextBox2.Size = new Size(630, 343);
+            richTextBox2.TabIndex = 22;
+            richTextBox2.Text = "";
+            // 
+            // btnsimpan
+            // 
+            btnsimpan.BackgroundImage = (Image)resources.GetObject("btnsimpan.BackgroundImage");
+            btnsimpan.Cursor = Cursors.Hand;
+            btnsimpan.Location = new Point(1411, 46);
+            btnsimpan.Name = "btnsimpan";
+            btnsimpan.Size = new Size(203, 64);
+            btnsimpan.TabIndex = 24;
+            btnsimpan.UseVisualStyleBackColor = true;
+            btnsimpan.Click += btnsimpan_Click_1;
+            // 
+            // btnbatal
+            // 
+            btnbatal.BackgroundImage = (Image)resources.GetObject("btnbatal.BackgroundImage");
+            btnbatal.Cursor = Cursors.Hand;
+            btnbatal.Location = new Point(1659, 46);
+            btnbatal.Name = "btnbatal";
+            btnbatal.Size = new Size(203, 64);
+            btnbatal.TabIndex = 25;
+            btnbatal.UseVisualStyleBackColor = true;
+            // 
+            // v_responfeedback
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
-            Controls.Add(dataGridView1);
+            Controls.Add(btnbatal);
+            Controls.Add(btnsimpan);
+            Controls.Add(richTextBox2);
+            Controls.Add(dateTimePicker1);
+            Controls.Add(richTextBox1);
             Controls.Add(btnlogout);
             Controls.Add(btnprofiladmin);
             Controls.Add(btnfeedbackadmin);
             Controls.Add(btnriwayatadmin);
             Controls.Add(btnpesananadmin);
             Controls.Add(btnkatalaogadmin);
-            Name = "v_pesananadmin";
-            Text = "v_pesananadmin";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Name = "v_responfeedback";
+            Text = "v_responfeedback";
             ResumeLayout(false);
         }
 
@@ -142,6 +188,10 @@
         private Button btnriwayatadmin;
         private Button btnpesananadmin;
         private Button btnkatalaogadmin;
-        private DataGridView dataGridView1;
+        private RichTextBox richTextBox1;
+        private DateTimePicker dateTimePicker1;
+        private RichTextBox richTextBox2;
+        private Button btnsimpan;
+        private Button btnbatal;
     }
 }

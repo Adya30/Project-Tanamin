@@ -6,13 +6,26 @@ namespace Project_Tanamin.app.view
 {
     public partial class v_editprofiladmin : Form
     {
+        private c_user controller;
+
         public v_editprofiladmin()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            username.Text = c_user.Username;
-            password.Text = c_user.Password;
-            konfirmasipassword.Text = c_user.Password;
+
+            controller = new c_user();
+
+            LoadUserToFields();
+        }
+
+        private void LoadUserToFields()
+        {
+            if (c_user.CurrentUser != null)
+            {
+                username.Text = c_user.CurrentUser.Username;
+                password.Text = c_user.CurrentUser.Password;
+                konfirmasipassword.Text = c_user.CurrentUser.Password;
+            }
         }
 
         private void btnkatalaogadmin_Click(object sender, EventArgs e)
@@ -41,7 +54,7 @@ namespace Project_Tanamin.app.view
 
         private void btnprofiladmin_Click(object sender, EventArgs e)
         {
-            // tidak perlu aksi
+
         }
 
         private void btneditprofiladmin_Click(object sender, EventArgs e)
@@ -52,68 +65,46 @@ namespace Project_Tanamin.app.view
 
         private void btnlogout_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-                "Apakah Anda yakin ingin keluar?",
+            if (MessageBox.Show("Apakah Anda yakin ingin keluar?",
                 "Konfirmasi Logout",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
+                MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                controller.Logout();
                 new v_login().Show();
                 this.Close();
             }
         }
 
+
         private void btnsimpan_Click(object sender, EventArgs e)
         {
-            string newUsername = username.Text.Trim();
-            string newPassword = password.Text.Trim();
+            string user = username.Text.Trim();
+            string pass = password.Text.Trim();
             string konfirmasi = konfirmasipassword.Text.Trim();
 
-            if (newPassword != konfirmasi)
+            string hasil = controller.UpdateProfile("",user,"", pass,konfirmasi);
+
+            if (hasil.Contains("Berhasil"))
             {
-                MessageBox.Show(
-                    "Konfirmasi password tidak cocok!",
-                    "Gagal Update",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return;
-            }
-
-            c_updateprofil updater = new c_updateprofil();
-
-            string hasil = updater.UpdateProfilAdmin(newUsername, newPassword, konfirmasi);
-
-            if (hasil == "OK")
-            {
-                MessageBox.Show(
-                    "Profil berhasil diperbarui!",
-                    "Sukses",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show("Profil Admin berhasil diperbarui!","Sukses",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
 
                 new v_profiladmin().Show();
                 this.Close();
             }
             else
             {
-                MessageBox.Show(
-                    hasil,
-                    "Gagal Update",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                MessageBox.Show(hasil,"Gagal Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         private void btnbatal_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-                "Apakah Anda yakin batal mengubah profil?",
-                "Konfirmasi",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
+            if (MessageBox.Show("Batalkan perubahan?", "Konfirmasi",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 new v_profiladmin().Show();
                 this.Close();

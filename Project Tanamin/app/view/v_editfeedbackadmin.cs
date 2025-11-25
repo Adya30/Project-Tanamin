@@ -15,6 +15,7 @@ namespace Project_Tanamin.app.view
         public v_editfeedbackadmin()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }

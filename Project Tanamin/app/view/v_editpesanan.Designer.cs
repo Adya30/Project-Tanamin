@@ -1,6 +1,6 @@
 ﻿namespace Project_Tanamin.app.view
 {
-    partial class v_tambahfeedbackcustomer
+    partial class v_editpesanan
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "tambahfeedbackcustomer";
+            SuspendLayout();
+            // 
+            // v_editpesanan
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1924, 1050);
+            Name = "v_editpesanan";
+            Text = "v_editpesanan";
+            ResumeLayout(false);
         }
 
         #endregion
