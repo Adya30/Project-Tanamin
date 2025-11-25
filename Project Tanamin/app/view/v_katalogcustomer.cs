@@ -13,7 +13,6 @@ namespace Project_Tanamin.app.view
         private c_produk ctrlProduk;
         private int? userId;
 
-        // Enkapsulasi keranjang
         private List<(m_produk produk, int jumlah)> keranjang;
 
         public v_katalogcustomer(int? idUser = null)

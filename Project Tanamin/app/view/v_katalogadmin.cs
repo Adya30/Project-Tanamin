@@ -55,7 +55,7 @@ namespace Project_Tanamin.app.view
 
             if (produk.FotoProduk != null)
             {
-                using (var ms = new System.IO.MemoryStream(produk.FotoProduk))
+                using (var ms = new MemoryStream(produk.FotoProduk))
                 {
                     pic.Image = Image.FromStream(ms);
                 }
@@ -64,28 +64,17 @@ namespace Project_Tanamin.app.view
             Label lblNama = new Label
             {
                 Text = produk.NamaProduk,
-                Top = pic.Bottom + 15,       
+                Top = pic.Bottom + 10,
                 Left = 10,
                 Width = card.Width - 20,
                 Font = new Font("Arial", 11, FontStyle.Bold),
                 AutoEllipsis = true
             };
 
-            Label lblKategori = new Label
-            {
-                Text = "Kategori: " + produk.NamaKategori,
-                Top = lblNama.Bottom + 5,
-                Left = 10,
-                Width = card.Width - 20,
-                Font = new Font("Arial", 9, FontStyle.Italic),
-                ForeColor = Color.DarkBlue,
-                AutoEllipsis = true
-            };
-
             Label lblStok = new Label
             {
                 Text = "Stok: " + produk.StokProduk,
-                Top = lblNama.Bottom + 5, 
+                Top = lblNama.Bottom + 5,
                 Left = 10,
                 Width = card.Width - 20,
                 ForeColor = produk.StokProduk == 0 ? Color.Red : Color.Black
@@ -94,7 +83,7 @@ namespace Project_Tanamin.app.view
             Label lblHarga = new Label
             {
                 Text = "Harga: Rp." + produk.HargaSatuan,
-                Top = lblStok.Bottom + 5,    
+                Top = lblStok.Bottom + 5,
                 Left = 10,
                 Width = card.Width - 20,
                 ForeColor = Color.DarkGreen,
@@ -104,19 +93,22 @@ namespace Project_Tanamin.app.view
             Label lblDeskripsi = new Label
             {
                 Text = produk.Deskripsi,
-                Top = lblHarga.Bottom + 5, 
+                Top = lblHarga.Bottom + 5,
                 Left = 10,
                 Width = card.Width - 20,
-                Height = 60,
-                AutoEllipsis = true
+                Height = 50,
+                AutoSize = false,
+                MaximumSize = new Size(card.Width - 20, 50),
+                Font = new Font("Arial", 9),
+                ForeColor = Color.DimGray
             };
+
+            card.Controls.Add(lblDeskripsi);
 
             card.Controls.Add(pic);
             card.Controls.Add(lblNama);
-            card.Controls.Add(lblKategori);
             card.Controls.Add(lblStok);
             card.Controls.Add(lblHarga);
-            card.Controls.Add(lblDeskripsi);
 
             if (produk.IsDeleted)
             {

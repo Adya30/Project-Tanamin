@@ -29,7 +29,6 @@ namespace Project_Tanamin.app.view
             btnpicture.SizeMode = PictureBoxSizeMode.Zoom;
             btnpicture.BorderStyle = BorderStyle.FixedSingle;
 
-            // Jika edit
             if (editProduk != null)
             {
                 nama_produk.Text = editProduk.NamaProduk;
