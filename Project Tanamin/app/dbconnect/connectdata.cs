@@ -20,5 +20,10 @@ namespace Project_Tanamin.app.dbconnect
 
             connstring = $"Host={db_host};Username={db_user};Password={db_pass};Database={db_name};";
         }
+
+        public NpgsqlConnection getConn()
+        {
+            return new NpgsqlConnection(connstring);
+        }
     }
 }

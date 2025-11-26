@@ -140,9 +140,9 @@ namespace Project_Tanamin.app.view
 
         private void btnpesanancustomer_Click(object sender, EventArgs e)
         {
-            var formPesanan = new v_pesanancustomer();
-            formPesanan.Show();
-            this.Close();
+            //var formPesanan = new v_pesanancustomer();
+            //formPesanan.Show();
+            //this.Close();
         }
 
         private void btnriwayatcustomer_Click(object sender, EventArgs e)

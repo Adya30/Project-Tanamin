@@ -126,10 +126,11 @@
             // 
             // btnbayar
             // 
+            btnbayar.BackgroundImage = (Image)resources.GetObject("btnbayar.BackgroundImage");
             btnbayar.Cursor = Cursors.Hand;
-            btnbayar.Location = new Point(1650, 31);
+            btnbayar.Location = new Point(1665, 35);
             btnbayar.Name = "btnbayar";
-            btnbayar.Size = new Size(223, 67);
+            btnbayar.Size = new Size(184, 67);
             btnbayar.TabIndex = 24;
             btnbayar.UseVisualStyleBackColor = true;
             btnbayar.Click += btnbayar_Click;

@@ -275,7 +275,7 @@ namespace Project_Tanamin.app.view
         }
 
         // =====================================================================
-        // BUTTON BAYAR → masuk ke v_pembayaran
+        // BUTTON BAYAR masuk ke v_pembayaran
         // =====================================================================
         private void btnbayar_Click(object sender, EventArgs e)
         {
@@ -287,7 +287,7 @@ namespace Project_Tanamin.app.view
 
             int total = HitungTotal();
 
-            v_pembayaran bayar = new v_pembayaran(total);
+            v_pembayaran bayar = new v_pembayaran(keranjang);
             bayar.Show();
             this.Close();
         }
@@ -329,7 +329,8 @@ namespace Project_Tanamin.app.view
 
         private void btnpesanancustomer_Click(object sender, EventArgs e)
         {
-
+            new v_pesanancustomer().Show();
+            this.Close();
         }
     }
 }

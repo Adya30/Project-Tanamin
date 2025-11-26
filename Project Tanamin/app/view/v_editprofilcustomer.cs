@@ -1,6 +1,7 @@
 ﻿using Project_Tanamin.app.controller;
 using Project_Tanamin.app.model;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
@@ -8,15 +9,15 @@ namespace Project_Tanamin.app.view
     public partial class v_editprofilcustomer : Form
     {
         private c_user ctrl;
+        private int? userId = c_user.CurrentUser?.IdUser; 
+        private List<(m_produk produk, int jumlah)> keranjangSementara = new List<(m_produk, int)>();
 
         public v_editprofilcustomer()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
 
-
             ctrl = new c_user();
-
             LoadUserToFields();
         }
 
@@ -38,13 +39,9 @@ namespace Project_Tanamin.app.view
             this.Close();
         }
 
-        private int? userId = c_user.CurrentUser?.IdUser; // misal diambil dari login
-        private List<(m_produk produk, int jumlah)> keranjangSementara = new List<(m_produk, int)>(); // keranjang sementara
-
         private void btnpesanancustomer_Click(object sender, EventArgs e)
         {
-            var formPesanan = new v_pesanancustomer();
-            formPesanan.Show();
+            new v_pesanancustomer().Show();
             this.Close();
         }
 
@@ -67,7 +64,7 @@ namespace Project_Tanamin.app.view
             if (MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Logout",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                ctrl.Logout(); 
+                ctrl.Logout();
                 new v_login().Show();
                 this.Close();
             }

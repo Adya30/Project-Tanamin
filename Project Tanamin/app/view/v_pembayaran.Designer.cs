@@ -169,6 +169,7 @@
             // 
             // btnbatal
             // 
+            btnbatal.BackgroundImage = (Image)resources.GetObject("btnbatal.BackgroundImage");
             btnbatal.Location = new Point(1670, 45);
             btnbatal.Name = "btnbatal";
             btnbatal.Size = new Size(190, 66);

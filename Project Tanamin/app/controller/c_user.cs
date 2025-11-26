@@ -17,29 +17,34 @@ namespace Project_Tanamin.app.controller
 
         public static User CurrentUser { get; private set; }
 
+        // ============================================================
+        // REGISTER CUSTOMER
+        // ============================================================
         public string RegisterCustomer(string nama, string username, string telp, string password, string konfirmasi)
         {
             if (string.IsNullOrWhiteSpace(nama) ||
                 string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(telp) ||
                 string.IsNullOrWhiteSpace(password))
-                return "Semua data harus diisi";
+                return "Semua data harus diisi!";
 
             if (password != konfirmasi)
-                return "Konfirmasi password tidak cocok";
+                return "Konfirmasi password tidak cocok!";
 
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
 
+                // cek username
                 string checkQuery = "SELECT 1 FROM users WHERE username=@u LIMIT 1";
                 using (var cmd = new NpgsqlCommand(checkQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@u", username);
                     if (cmd.ExecuteScalar() != null)
-                        return "Username sudah digunakan";
+                        return "Username sudah digunakan!";
                 }
 
+                // insert user
                 string insertQuery = @"INSERT INTO users 
                     (nama_lengkap, username, no_telp, password, is_admin)
                     VALUES (@nama, @user, @telp, @pass, false)";
@@ -55,12 +60,17 @@ namespace Project_Tanamin.app.controller
             }
 
             return "Pendaftaran Berhasil";
-
         }
 
+        // ============================================================
+        // LOGIN
+        // ============================================================
         public string Login(string username, string password)
         {
-            string query = @"SELECT id_user, username, password, nama_lengkap, no_telp, is_admin FROM users WHERE username=@u AND password=@p LIMIT 1";
+            string query = @"SELECT id_user, username, password, nama_lengkap, no_telp, is_admin 
+                             FROM users 
+                             WHERE username=@u AND password=@p 
+                             LIMIT 1";
 
             using (var conn = new NpgsqlConnection(connString))
             using (var cmd = new NpgsqlCommand(query, conn))
@@ -74,7 +84,6 @@ namespace Project_Tanamin.app.controller
                     if (reader.Read())
                     {
                         bool isAdmin = Convert.ToBoolean(reader["is_admin"]);
-
                         User akun = isAdmin ? new Admin() : new Customer();
 
                         akun.IdUser = reader.GetInt32(reader.GetOrdinal("id_user"));
@@ -97,37 +106,54 @@ namespace Project_Tanamin.app.controller
             return "LOGIN_GAGAL";
         }
 
+        // ============================================================
+        // UPDATE PROFILE
+        // ============================================================
         public string UpdateProfile(string nama, string username, string telp, string pass, string konfirmasi)
         {
             if (CurrentUser == null)
-                return "Tidak ada user login";
+                return "Tidak ada user login!";
 
-            if (CurrentUser.IsAdmin)
-            {
-                return UpdateAdmin(username, pass, konfirmasi);
-            }
-            else
-            {
-                return UpdateCustomer(nama, username, telp, pass, konfirmasi);
-            }
+            return CurrentUser.IsAdmin
+                ? UpdateAdmin(username, pass, konfirmasi)
+                : UpdateCustomer(nama, username, telp, pass, konfirmasi);
         }
 
+        // ============================================================
+        // UPDATE CUSTOMER
+        // ============================================================
         private string UpdateCustomer(string nama, string username, string telp, string pass, string konfirmasi)
         {
             if (string.IsNullOrWhiteSpace(nama) ||
                 string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(telp) ||
                 string.IsNullOrWhiteSpace(pass))
-                return "Semua data harus diisi";
+                return "Semua data harus diisi!";
 
             if (pass != konfirmasi)
-                return "Konfirmasi password tidak cocok";
+                return "Konfirmasi password tidak cocok!";
 
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
 
-                string updateQuery = @"UPDATE users SET nama_lengkap=@nama, username=@user, no_telp=@telp, password=@pass WHERE id_user=@id";
+                // Cek apakah username baru dipakai user lain
+                if (username != CurrentUser.Username)
+                {
+                    string checkQuery = "SELECT 1 FROM users WHERE username=@u AND id_user<>@id LIMIT 1";
+                    using (var cmd = new NpgsqlCommand(checkQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@u", username);
+                        cmd.Parameters.AddWithValue("@id", CurrentUser.IdUser);
+
+                        if (cmd.ExecuteScalar() != null)
+                            return "Username sudah digunakan!";
+                    }
+                }
+
+                string updateQuery = @"UPDATE users 
+                                       SET nama_lengkap=@nama, username=@user, no_telp=@telp, password=@pass 
+                                       WHERE id_user=@id";
 
                 using (var cmd = new NpgsqlCommand(updateQuery, conn))
                 {
@@ -140,6 +166,7 @@ namespace Project_Tanamin.app.controller
                 }
             }
 
+            // update global
             CurrentUser.NamaLengkap = nama;
             CurrentUser.Username = username;
             CurrentUser.NoTelp = telp;
@@ -148,20 +175,38 @@ namespace Project_Tanamin.app.controller
             return "Update Profil Berhasil";
         }
 
+        // ============================================================
+        // UPDATE ADMIN
+        // ============================================================
         private string UpdateAdmin(string username, string pass, string konfirmasi)
         {
             if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(pass))
-                return "Username dan password harus diisi";
+                return "Username dan password harus diisi!";
 
             if (pass != konfirmasi)
-                return "Konfirmasi password tidak cocok";
+                return "Konfirmasi password tidak cocok!";
 
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
 
-                string updateQuery = @"UPDATE users SET username=@user,password=@pass WHERE id_user=@id";
+                // Cek duplikasi username admin
+                if (username != CurrentUser.Username)
+                {
+                    string check = "SELECT 1 FROM users WHERE username=@u AND id_user<>@id LIMIT 1";
+                    using (var cmd = new NpgsqlCommand(check, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@u", username);
+                        cmd.Parameters.AddWithValue("@id", CurrentUser.IdUser);
+                        if (cmd.ExecuteScalar() != null)
+                            return "Username sudah digunakan!";
+                    }
+                }
+
+                string updateQuery = @"UPDATE users 
+                                       SET username=@user, password=@pass 
+                                       WHERE id_user=@id";
 
                 using (var cmd = new NpgsqlCommand(updateQuery, conn))
                 {
@@ -178,6 +223,9 @@ namespace Project_Tanamin.app.controller
             return "Update Profil Berhasil";
         }
 
+        // ============================================================
+        // LOGOUT
+        // ============================================================
         public void Logout()
         {
             CurrentUser = null;

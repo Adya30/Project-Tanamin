@@ -10,7 +10,7 @@ namespace Project_Tanamin.app.model
     {
         public int id_kecamatan { get; set; }
         public string nama_kecamatan { get; set; }
-        public string nama_kabupaten { get; set; } = "Jember";
+        public int? id_kabupaten { get; set; }
     }
 
 }

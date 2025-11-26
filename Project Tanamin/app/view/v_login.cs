@@ -8,19 +8,20 @@ namespace Project_Tanamin
 {
     public partial class v_login : Form
     {
-        private c_user userController;
+        private readonly c_user userController;
 
         public v_login()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
 
-            linkdaftar.LinkClicked += Linkdaftarclick;
-
             userController = new c_user();
+
+            // event link daftar
+            linkdaftar.LinkClicked += LinkDaftar_Click;
         }
 
-        private void Linkdaftarclick(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkDaftar_Click(object sender, LinkLabelLinkClickedEventArgs e)
         {
             v_register reg = new v_register();
             reg.Show();
@@ -32,33 +33,33 @@ namespace Project_Tanamin
             string username = login_username.Text.Trim();
             string password = login_password.Text.Trim();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Username dan Password wajib diisi!");
+                MessageBox.Show("Username dan Password wajib diisi!",
+                                "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string result = userController.Login(username, password);
 
-            switch (result)
+            if (result == "LOGIN_ADMIN")
             {
-                case "LOGIN_ADMIN":
-                    MessageBox.Show("Login berhasil sebagai Admin!");
-                    v_profiladmin adminPage = new v_profiladmin();
-                    adminPage.Show();
-                    this.Hide();
-                    break;
-
-                case "LOGIN_CUSTOMER":
-                    MessageBox.Show("Login berhasil sebagai Customer!");
-                    v_profilcustomer custPage = new v_profilcustomer();
-                    custPage.Show();
-                    this.Hide();
-                    break;
-
-                default:
-                    MessageBox.Show("Username atau password salah!");
-                    break;
+                MessageBox.Show("Login berhasil sebagai Admin!");
+                v_katalogadmin adminPage = new v_katalogadmin();
+                adminPage.Show();
+                this.Hide();
+            }
+            else if (result == "LOGIN_CUSTOMER")
+            {
+                MessageBox.Show("Login berhasil sebagai Customer!");
+                v_katalogcustomer custPage = new v_katalogcustomer();
+                custPage.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Username atau password salah!",
+                                "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
