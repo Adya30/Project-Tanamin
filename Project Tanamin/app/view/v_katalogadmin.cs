@@ -216,7 +216,7 @@ namespace Project_Tanamin.app.view
 
         private void btnprofiladmin_Click(object sender, EventArgs e)
         {
-            new v_editprofiladmin().Show();
+            new v_profiladmin().Show();
             this.Close();
         }
 

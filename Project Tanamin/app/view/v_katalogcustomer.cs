@@ -309,6 +309,8 @@ namespace Project_Tanamin.app.view
 
         private void btnfeedbackcustomer_Click(object sender, EventArgs e)
         {
+            new v_feedbackcustomer().Show();
+            this.Close();
         }
 
         private void btnprofilcustomer_Click(object sender, EventArgs e)
