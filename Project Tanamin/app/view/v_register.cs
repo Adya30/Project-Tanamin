@@ -42,9 +42,21 @@ namespace Project_Tanamin.view
                 return;
             }
 
-            if (username.ToLower() == "admin")
+            if (username.Length < 4)
             {
-                MessageBox.Show("Username 'admin' tidak boleh digunakan!");
+                MessageBox.Show("Username minimal 4 karakter!");
+                return;
+            }
+
+            if (password.Length < 8)
+            {
+                MessageBox.Show("Password minimal 8 karakter!");
+                return;
+            }
+
+            if (!long.TryParse(noTelp, out _))
+            {
+                MessageBox.Show("Nomor telepon harus berupa angka!");
                 return;
             }
 

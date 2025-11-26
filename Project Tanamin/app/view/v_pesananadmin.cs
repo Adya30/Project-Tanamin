@@ -1,32 +1,136 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Project_Tanamin.app.controller;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
 {
     public partial class v_pesananadmin : Form
     {
+        private readonly c_pesanan ctrl;
+
         public v_pesananadmin()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            ctrl = new c_pesanan();
+            LoadPesanan();
+        }
+
+        private void LoadPesanan()
+        {
+            var list = ctrl.GetSemuaPesananAdmin();
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID", typeof(int)); 
+            dt.Columns.Add("Tanggal");
+            dt.Columns.Add("Customer");
+            dt.Columns.Add("Produk");
+            dt.Columns.Add("Jumlah");
+            dt.Columns.Add("Status");
+            dt.Columns.Add("Pembayaran");
+            dt.Columns.Add("Alamat");
+            dt.Columns.Add("Harga Satuan");
+            dt.Columns.Add("Subtotal");
+
+            foreach (var item in list)
+            {
+                int subtotal = item.detail.jumlah_transaksi * item.detail.harga_satuan;
+
+                dt.Rows.Add(
+                    item.transaksi.id_transaksi,
+                    item.transaksi.tanggal_transaksi.ToString("dd/MM/yyyy HH:mm"),
+                    item.user.NamaLengkap,
+                    item.produk.NamaProduk,
+                    item.detail.jumlah_transaksi,
+                    item.transaksi.status_transaksi,
+                    item.transaksi.pembayaran,
+                    item.transaksi.detail_alamat,
+                    item.detail.harga_satuan,
+                    subtotal
+                );
+            }
+
+            dataGridView1.DataSource = dt;
+
+            dataGridView1.Columns["ID"].Visible = false;
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.AllowUserToAddRows = false;
+
+            // Ganti warna header menjadi hijau
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113); // hijau
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+            dataGridView1.ColumnHeadersHeight = 40;
+
+            // Ganti font dan warna baris alternatif
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(220, 248, 198); // hijau muda
+            dataGridView1.RowHeadersVisible = false;
+
+            DataGridViewComboBoxColumn comboStatus = new DataGridViewComboBoxColumn();
+            comboStatus.Name = "Status";
+            comboStatus.HeaderText = "Status";
+            comboStatus.DataPropertyName = "Status";
+
+            comboStatus.Items.Add("Diproses");
+            comboStatus.Items.Add("Dikirim");
+            comboStatus.Items.Add("Selesai");
+            comboStatus.Items.Add("Dibatalkan");
+
+            dataGridView1.Columns.Remove("Status");
+            dataGridView1.Columns.Add(comboStatus);
+
+            if (!dataGridView1.Columns.Contains("Simpan"))
+            {
+                DataGridViewButtonColumn btnSave = new DataGridViewButtonColumn();
+                btnSave.Name = "Simpan";
+                btnSave.HeaderText = "Aksi";
+                btnSave.Text = "Simpan";
+                btnSave.UseColumnTextForButtonValue = true;
+                btnSave.Width = 80;
+
+                dataGridView1.Columns.Add(btnSave);
+            }
+
+            dataGridView1.CellClick -= DataGridView1_CellClick;
+            dataGridView1.CellClick += DataGridView1_CellClick;
+        }
+
+
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Simpan")
+            {
+                int idTransaksi = Convert.ToInt32(
+                    dataGridView1.Rows[e.RowIndex].Cells["ID"].Value
+                );
+
+                string statusBaru = dataGridView1.Rows[e.RowIndex].Cells["Status"].Value.ToString();
+
+                bool ok = ctrl.UpdateStatusPesanan(idTransaksi, statusBaru);
+
+                if (ok)
+                {
+                    MessageBox.Show("Status berhasil diperbarui!");
+                    LoadPesanan();
+                }
+                else
+                {
+                    MessageBox.Show("Gagal memperbarui status.");
+                }
+            }
         }
 
         private void btnkatalaogadmin_Click(object sender, EventArgs e)
         {
             new v_katalogadmin().Show();
             this.Close();
-        }
-
-        private void btnpesananadmin_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnriwayatadmin_Click(object sender, EventArgs e)

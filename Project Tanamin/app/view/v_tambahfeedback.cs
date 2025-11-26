@@ -39,7 +39,7 @@ namespace Project_Tanamin.app.view
             {
                 if (modeEdit)
                 {
-                    sukses = ctrl.UpdateFeedback(oldTanggal,oldPertanyaan,tanggal,pertanyaan);
+                    sukses = ctrl.UpdateFeedback(oldTanggal, oldPertanyaan, tanggal, pertanyaan);
                 }
                 else
                 {
@@ -119,6 +119,39 @@ namespace Project_Tanamin.app.view
             if (found.Length > 0 && found[0] is Button btn)
             {
                 btn.Text = text;
+            }
+        }
+
+        private void btnpesanancustomer_Click(object sender, EventArgs e)
+        {
+            new v_pesanancustomer().Show();
+            this.Close();
+        }
+
+        private void btnriwayatcustomer_Click(object sender, EventArgs e)
+        {
+            new v_riwayatcustomer().Show();
+            this.Close();
+        }
+
+        private void btnfeedbackcustomer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnprofilcustomer_Click(object sender, EventArgs e)
+        {
+            new v_profilcustomer().Show();
+            this.Close();
+        }
+
+        private void btnlogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Logout",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                new v_login().Show();
+                this.Close();
             }
         }
     }

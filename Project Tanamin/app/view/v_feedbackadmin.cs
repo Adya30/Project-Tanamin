@@ -127,14 +127,11 @@ namespace Project_Tanamin.app.view
             dataGridView1.BackgroundColor = Color.White;
             dataGridView1.EnableHeadersVisualStyles = false;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(63, 175, 71);
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113); // hijau
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             dataGridView1.ColumnHeadersHeight = 40;
-
-            dataGridView1.DefaultCellStyle.BackColor = Color.White;
-            dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
-            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
 
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(235, 255, 238);
 

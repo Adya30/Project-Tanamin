@@ -2,6 +2,7 @@
 using Project_Tanamin.app.model;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
@@ -31,40 +32,60 @@ namespace Project_Tanamin.app.view
 
         private void LoadPesanan()
         {
-            var list = ctrl.GetPesananByUser(userId, "Diproses");
+            var list = ctrl.GetPesananBelumSelesaiByUser(userId);
 
             DataTable dt = new DataTable();
+            dt.Columns.Add("Waktu Transaksi");
             dt.Columns.Add("Nama Produk");
             dt.Columns.Add("Jumlah Transaksi");
-            dt.Columns.Add("Status Transaksi");
-            dt.Columns.Add("Pembayaran");
             dt.Columns.Add("Harga Satuan");
             dt.Columns.Add("Subtotal");
-            dt.Columns.Add("Deskripsi");
+            dt.Columns.Add("Status Transaksi");
+            dt.Columns.Add("Pembayaran");
             dt.Columns.Add("Kategori");
+            dt.Columns.Add("Deskripsi");
 
             foreach (var item in list)
             {
                 int subtotal = item.detail.jumlah_transaksi * item.detail.harga_satuan;
 
                 dt.Rows.Add(
+                    item.transaksi.tanggal_transaksi.ToString("dd-MM-yyyy"),
                     item.produk.NamaProduk,
                     item.detail.jumlah_transaksi,
-                    item.transaksi.status_transaksi,
-                    item.transaksi.pembayaran,
                     item.detail.harga_satuan,
                     subtotal,
-                    item.produk.Deskripsi,
-                    item.produk.NamaKategori
+                    item.transaksi.status_transaksi,
+                    item.transaksi.pembayaran,
+                    item.produk.NamaKategori,
+                    item.produk.Deskripsi
                 );
             }
 
             dataGridView1.DataSource = dt;
+            dataGridView1.RowHeadersVisible = false;
+
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113); // hijau
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+            dataGridView1.ColumnHeadersHeight = 40;
+
+
+            dataGridView1.Columns["Jumlah Transaksi"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns["Harga Satuan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns["Subtotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridView1.Columns["Waktu Transaksi"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridView1.Columns["Deskripsi"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
         }
+
 
         private void btnkatalaogcustomer_Click(object sender, EventArgs e)
         {
@@ -74,7 +95,7 @@ namespace Project_Tanamin.app.view
 
         private void btnpesanancustomer_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnriwayatcustomer_Click(object sender, EventArgs e)

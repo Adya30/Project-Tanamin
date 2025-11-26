@@ -14,10 +14,7 @@ namespace Project_Tanamin
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-
             userController = new c_user();
-
-            // event link daftar
             linkdaftar.LinkClicked += LinkDaftar_Click;
         }
 
@@ -35,8 +32,8 @@ namespace Project_Tanamin
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Username dan Password wajib diisi!",
-                                "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Username dan Password wajib diisi!","Peringatan", 
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -58,8 +55,8 @@ namespace Project_Tanamin
             }
             else
             {
-                MessageBox.Show("Username atau password salah!",
-                                "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Username atau password salah!", "Login Gagal", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

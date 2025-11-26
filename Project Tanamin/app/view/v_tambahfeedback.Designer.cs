@@ -45,7 +45,7 @@
             // 
             datetimefeedback.CalendarFont = new Font("Segoe UI", 15F);
             datetimefeedback.Font = new Font("Segoe UI", 13F);
-            datetimefeedback.Location = new Point(996, 399);
+            datetimefeedback.Location = new Point(1114, 398);
             datetimefeedback.Name = "datetimefeedback";
             datetimefeedback.Size = new Size(415, 42);
             datetimefeedback.TabIndex = 0;
@@ -54,9 +54,9 @@
             // 
             richTextBoxpertanyaan.BorderStyle = BorderStyle.None;
             richTextBoxpertanyaan.Cursor = Cursors.IBeam;
-            richTextBoxpertanyaan.Location = new Point(996, 540);
+            richTextBoxpertanyaan.Location = new Point(1114, 564);
             richTextBoxpertanyaan.Name = "richTextBoxpertanyaan";
-            richTextBoxpertanyaan.Size = new Size(769, 344);
+            richTextBoxpertanyaan.Size = new Size(635, 344);
             richTextBoxpertanyaan.TabIndex = 1;
             richTextBoxpertanyaan.Text = "";
             // 
@@ -64,11 +64,12 @@
             // 
             btnlogout.BackgroundImage = (Image)resources.GetObject("btnlogout.BackgroundImage");
             btnlogout.Cursor = Cursors.Hand;
-            btnlogout.Location = new Point(21, 936);
+            btnlogout.Location = new Point(21, 952);
             btnlogout.Name = "btnlogout";
             btnlogout.Size = new Size(340, 64);
             btnlogout.TabIndex = 23;
             btnlogout.UseVisualStyleBackColor = true;
+            btnlogout.Click += btnlogout_Click;
             // 
             // btnprofilcustomer
             // 
@@ -79,6 +80,7 @@
             btnprofilcustomer.Size = new Size(340, 64);
             btnprofilcustomer.TabIndex = 22;
             btnprofilcustomer.UseVisualStyleBackColor = true;
+            btnprofilcustomer.Click += btnprofilcustomer_Click;
             // 
             // btnfeedbackcustomer
             // 
@@ -89,6 +91,7 @@
             btnfeedbackcustomer.Size = new Size(340, 64);
             btnfeedbackcustomer.TabIndex = 21;
             btnfeedbackcustomer.UseVisualStyleBackColor = true;
+            btnfeedbackcustomer.Click += btnfeedbackcustomer_Click;
             // 
             // btnriwayatcustomer
             // 
@@ -99,6 +102,7 @@
             btnriwayatcustomer.Size = new Size(340, 64);
             btnriwayatcustomer.TabIndex = 20;
             btnriwayatcustomer.UseVisualStyleBackColor = true;
+            btnriwayatcustomer.Click += btnriwayatcustomer_Click;
             // 
             // btnpesanancustomer
             // 
@@ -109,6 +113,7 @@
             btnpesanancustomer.Size = new Size(340, 64);
             btnpesanancustomer.TabIndex = 19;
             btnpesanancustomer.UseVisualStyleBackColor = true;
+            btnpesanancustomer.Click += btnpesanancustomer_Click;
             // 
             // btnkatalaogcustomer
             // 

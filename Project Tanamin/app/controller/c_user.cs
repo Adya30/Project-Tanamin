@@ -35,7 +35,6 @@ namespace Project_Tanamin.app.controller
             {
                 conn.Open();
 
-                // cek username
                 string checkQuery = "SELECT 1 FROM users WHERE username=@u LIMIT 1";
                 using (var cmd = new NpgsqlCommand(checkQuery, conn))
                 {
@@ -44,7 +43,6 @@ namespace Project_Tanamin.app.controller
                         return "Username sudah digunakan!";
                 }
 
-                // insert user
                 string insertQuery = @"INSERT INTO users 
                     (nama_lengkap, username, no_telp, password, is_admin)
                     VALUES (@nama, @user, @telp, @pass, false)";
@@ -166,7 +164,6 @@ namespace Project_Tanamin.app.controller
                 }
             }
 
-            // update global
             CurrentUser.NamaLengkap = nama;
             CurrentUser.Username = username;
             CurrentUser.NoTelp = telp;
@@ -191,7 +188,6 @@ namespace Project_Tanamin.app.controller
             {
                 conn.Open();
 
-                // Cek duplikasi username admin
                 if (username != CurrentUser.Username)
                 {
                     string check = "SELECT 1 FROM users WHERE username=@u AND id_user<>@id LIMIT 1";
@@ -204,9 +200,7 @@ namespace Project_Tanamin.app.controller
                     }
                 }
 
-                string updateQuery = @"UPDATE users 
-                                       SET username=@user, password=@pass 
-                                       WHERE id_user=@id";
+                string updateQuery = @"UPDATE users SET username=@user, password=@pass WHERE id_user=@id";
 
                 using (var cmd = new NpgsqlCommand(updateQuery, conn))
                 {

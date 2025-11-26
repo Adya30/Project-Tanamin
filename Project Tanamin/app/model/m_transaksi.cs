@@ -14,7 +14,6 @@ namespace Project_Tanamin.app.model
         public string pembayaran { get; set; }
         public string detail_alamat { get; set; }
         public int? id_user { get; set; }
-        public int? id_desa { get; set; }
     }
 
 }

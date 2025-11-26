@@ -12,11 +12,12 @@ namespace Project_Tanamin.app.view
         private c_produk ctrlProduk;
         private v_katalogadmin parentForm;
         private m_produk editProduk;
-        private byte[]? fotoByte = null;  
+        private byte[]? fotoByte = null;
 
         public v_tambahkatalog(v_katalogadmin parent, m_produk? produk = null)
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             parentForm = parent;
             ctrlProduk = new c_produk();
             editProduk = produk;
@@ -122,10 +123,51 @@ namespace Project_Tanamin.app.view
             }
         }
 
-
         private void btnbatal_Click(object sender, EventArgs e)
         {
+            new v_katalogadmin().Show();
             this.Close();
+        }
+
+        private void btnkatalogadmin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnpesananadmin_Click(object sender, EventArgs e)
+        {
+            new v_pesananadmin().Show();
+            this.Close();
+        }
+
+        private void btnriwayatadmin_Click(object sender, EventArgs e)
+        {
+            new v_riwayatadmin().Show();
+            this.Close();
+        }
+
+        private void btnfeedbackadmin_Click(object sender, EventArgs e)
+        {
+            new v_feedbackadmin().Show();
+            this.Close();
+        }
+
+        private void btnprofiladmin_Click(object sender, EventArgs e)
+        {
+            new v_profiladmin().Show();
+            this.Close();
+        }
+
+        private void btnlogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Apakah Anda yakin ingin keluar?",
+                "Konfirmasi Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                new v_login().Show();
+                this.Close();
+            }
         }
     }
 }

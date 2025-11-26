@@ -76,28 +76,30 @@ namespace Project_Tanamin.app.view
         // ===============================
         private void btnbayar_Click(object sender, EventArgs e)
         {
-            // Validasi keranjang
             if (keranjang.Count == 0)
             {
                 MessageBox.Show("Keranjang kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validasi bank
             if (string.IsNullOrEmpty(selectedBank))
             {
                 MessageBox.Show("Silakan pilih bank terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validasi nominal
+            if (string.IsNullOrWhiteSpace(textboxdetailalamat.Text))
+            {
+                MessageBox.Show("Alamat tidak boleh kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (!int.TryParse(textBoxnominal.Text.Trim(), NumberStyles.AllowThousands | NumberStyles.AllowLeadingSign, CultureInfo.CurrentCulture, out int nominal) || nominal < totalBelanja)
             {
                 MessageBox.Show("Nominal pembayaran kurang atau tidak valid!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Konfirmasi pembayaran
             var konfirmasi = MessageBox.Show(
                 $"Apakah Anda yakin ingin membayar total Rp {totalBelanja:N0} dengan bank {selectedBank}?",
                 "Konfirmasi Pembayaran",
@@ -106,12 +108,9 @@ namespace Project_Tanamin.app.view
             );
 
             if (konfirmasi != DialogResult.Yes)
-                return; // batal jika user pilih No
+                return; 
 
-            // Buat alamat lengkap
-            string alamatLengkap = $"{textboxdetailalamat.Text.Trim()}, Jember";
-
-            // Proses pembayaran
+            string alamatLengkap = $"{textboxdetailalamat.Text.Trim()}";
             var ctrlPembayaran = new c_Pembayaran();
             bool sukses = ctrlPembayaran.ProsesPembayaran(c_user.CurrentUser.IdUser, keranjang, selectedBank, alamatLengkap, "Diproses");
 
@@ -121,12 +120,10 @@ namespace Project_Tanamin.app.view
                 return;
             }
 
-            MessageBox.Show("Pembayaran berhasil! Pesanan sedang diproses.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // Bersihkan keranjang
+            MessageBox.Show("Pembayaran berhasil! Pesanan sedang diproses.", "Sukses", 
+            MessageBoxButtons.OK, MessageBoxIcon.Information);
             keranjang.Clear();
 
-            // Kembali ke katalog customer
             new v_katalogcustomer().Show();
             this.Close();
         }

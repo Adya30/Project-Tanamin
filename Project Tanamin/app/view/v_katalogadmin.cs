@@ -15,13 +15,18 @@ namespace Project_Tanamin.app.view
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
 
+            panelflow.AutoScroll = true;
+            panelflow.WrapContents = true;    
+            panelflow.FlowDirection = FlowDirection.LeftToRight;
+
+
             ctrlProduk = new c_produk();
             LoadKatalog();
         }
 
         public void LoadKatalog()
         {
-            panelflow.Controls.Clear(); 
+            panelflow.Controls.Clear();
 
             var listProduk = ctrlProduk.GetProdukList();
 
@@ -110,26 +115,12 @@ namespace Project_Tanamin.app.view
             card.Controls.Add(lblStok);
             card.Controls.Add(lblHarga);
 
-            if (produk.IsDeleted)
-            {
-                Label lblStatus = new Label
-                {
-                    Text = "Stok Habis",
-                    Top = lblDeskripsi.Bottom + 5, 
-                    Left = 10,
-                    ForeColor = Color.Red,
-                    Width = card.Width - 20,
-                    Font = new Font("Arial", 9, FontStyle.Bold)
-                };
-                card.Controls.Add(lblStatus);
-            }
-
             Button btnEdit = new Button
             {
                 Text = "Edit",
                 Width = 110,
                 Height = 35,
-                Top = card.Height - 70, 
+                Top = card.Height - 70,
                 Left = 10,
                 BackColor = Color.MediumSeaGreen,
                 ForeColor = Color.White,
@@ -230,6 +221,11 @@ namespace Project_Tanamin.app.view
                 new v_login().Show();
                 this.Close();
             }
+        }
+
+        private void v_katalogadmin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -48,7 +48,7 @@
             panelflow.Controls.Add(panel1);
             panelflow.Location = new Point(413, 188);
             panelflow.Name = "panelflow";
-            panelflow.Size = new Size(1040, 803);
+            panelflow.Size = new Size(875, 803);
             panelflow.TabIndex = 8;
             // 
             // panel1
@@ -137,10 +137,11 @@
             // 
             // panelRingkasan
             // 
-            panelRingkasan.BackColor = Color.Transparent;
-            panelRingkasan.Location = new Point(1459, 188);
+            panelRingkasan.BackColor = SystemColors.Window;
+            panelRingkasan.BorderStyle = BorderStyle.FixedSingle;
+            panelRingkasan.Location = new Point(1309, 188);
             panelRingkasan.Name = "panelRingkasan";
-            panelRingkasan.Size = new Size(431, 803);
+            panelRingkasan.Size = new Size(581, 803);
             panelRingkasan.TabIndex = 1;
             // 
             // v_katalogcustomer

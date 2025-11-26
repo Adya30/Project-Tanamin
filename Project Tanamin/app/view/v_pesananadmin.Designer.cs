@@ -92,7 +92,6 @@
             btnpesananadmin.Size = new Size(340, 64);
             btnpesananadmin.TabIndex = 25;
             btnpesananadmin.UseVisualStyleBackColor = true;
-            btnpesananadmin.Click += btnpesananadmin_Click;
             // 
             // btnkatalaogadmin
             // 
@@ -108,6 +107,7 @@
             // dataGridView1
             // 
             dataGridView1.BackgroundColor = SystemColors.Window;
+            dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(416, 186);
             dataGridView1.Name = "dataGridView1";

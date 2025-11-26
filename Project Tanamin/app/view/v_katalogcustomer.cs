@@ -20,6 +20,13 @@ namespace Project_Tanamin.app.view
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
 
+            // ======================================================
+            // FIX: BUAT PANEL KATALOG SCROLL
+            // ======================================================
+            panelflow.AutoScroll = true;
+            panelflow.FlowDirection = FlowDirection.LeftToRight;
+            panelflow.WrapContents = true;
+
             ctrlProduk = new c_produk();
             userId = idUser;
             keranjang = new List<(m_produk, int)>();
@@ -82,7 +89,7 @@ namespace Project_Tanamin.app.view
                 Top = pic.Bottom + 10,
                 Left = 10,
                 Width = card.Width - 20,
-                Font = new Font("Arial", 11, FontStyle.Bold),
+                Font = new Font("Arial", 10, FontStyle.Bold),
                 AutoEllipsis = true
             };
 
@@ -119,7 +126,6 @@ namespace Project_Tanamin.app.view
             };
 
             card.Controls.Add(lblDeskripsi);
-
             card.Controls.Add(pic);
             card.Controls.Add(lblNama);
             card.Controls.Add(lblStok);
@@ -154,7 +160,9 @@ namespace Project_Tanamin.app.view
             return card;
         }
 
-        // Abstraksi → method khusus
+        // =====================================================================
+        // KERANJANG
+        // =====================================================================
         private void TambahKeKeranjang(m_produk produk)
         {
             var idx = keranjang.FindIndex(x => x.produk.IdProduk == produk.IdProduk);
@@ -172,9 +180,6 @@ namespace Project_Tanamin.app.view
             }
         }
 
-        // =====================================================================
-        // PANEL RINGKASAN (TOTAL)
-        // =====================================================================
         private void UpdateRingkasan()
         {
             panelRingkasan.Controls.Clear();
@@ -214,33 +219,84 @@ namespace Project_Tanamin.app.view
             {
                 int subtotal = item.produk.HargaSatuan * item.jumlah;
 
-                Label lbl = new Label
+                Panel row = new Panel
                 {
-                    Text = $"{item.produk.NamaProduk} x {item.jumlah} = Rp {subtotal}",
-                    Top = top,
-                    Left = 10,
-                    Width = panelItems.Width - 35
+                    Width = panelItems.Width - 25,
+                    Height = 35,
+                    Left = 5,
+                    Top = top
                 };
 
-                panelItems.Controls.Add(lbl);
-                top += 25;
-            }
+                Label lblNama = new Label
+                {
+                    Text = $"{item.produk.NamaProduk}",
+                    Left = 5,
+                    Top = 8,
+                    Width = 180,
+                    Font = new Font("Arial", 9)
+                };
+                row.Controls.Add(lblNama);
 
-            int padding = 10;
+                Button btnMin = new Button
+                {
+                    Text = "-",
+                    Width = 30,
+                    Height = 30,
+                    Left = 190,
+                    Top = 5,
+                    Font = new Font("Arial", 9),
+                };
+                btnMin.Click += (s, e) => { KurangiQty(item.produk); };
+                row.Controls.Add(btnMin);
+
+                Label lblJumlah = new Label
+                {
+                    Text = item.jumlah.ToString(),
+                    Left = 225,
+                    Top = 8,
+                    Width = 30,
+                    Font = new Font("Arial", 9)
+                };
+                row.Controls.Add(lblJumlah);
+
+                Button btnPlus = new Button
+                {
+                    Text = "+",
+                    Width = 30,
+                    Height = 30,
+                    Left = 260,
+                    Top = 5,
+                    Font = new Font("Arial", 9)
+                };
+                btnPlus.Click += (s, e) => { TambahQty(item.produk); };
+                row.Controls.Add(btnPlus);
+
+                Label lblSubtotal = new Label
+                {
+                    Text = $"Rp {subtotal}",
+                    Left = 350,
+                    Top = 8,
+                    Width = 100
+                };
+                row.Controls.Add(lblSubtotal);
+
+                panelItems.Controls.Add(row);
+
+                top += 40;
+            }
 
             Label lblTotal = new Label
             {
                 Text = $"TOTAL = Rp {total}",
                 Left = 10,
                 Width = 400,
-                Font = new Font("Arial", 12, FontStyle.Bold),
+                Font = new Font("Arial", 10, FontStyle.Bold),
                 ForeColor = Color.DarkGreen,
-                Top = panelRingkasan.Height - 110 - padding
+                Top = panelRingkasan.Height - 110
             };
 
             panelRingkasan.Controls.Add(lblTotal);
 
-            // Button batal
             Button btnBatal = new Button
             {
                 Text = "Batal",
@@ -274,8 +330,46 @@ namespace Project_Tanamin.app.view
             return total;
         }
 
+        private void TambahQty(m_produk produk)
+        {
+            var idx = keranjang.FindIndex(x => x.produk.IdProduk == produk.IdProduk);
+            if (idx >= 0)
+            {
+                var item = keranjang[idx];
+
+                if (item.jumlah + 1 > produk.StokProduk)
+                {
+                    MessageBox.Show("Jumlah melebihi stok tersedia!");
+                    return;
+                }
+
+                keranjang[idx] = (item.produk, item.jumlah + 1);
+                UpdateRingkasan();
+            }
+        }
+
+        private void KurangiQty(m_produk produk)
+        {
+            var idx = keranjang.FindIndex(x => x.produk.IdProduk == produk.IdProduk);
+            if (idx >= 0)
+            {
+                var item = keranjang[idx];
+
+                if (item.jumlah - 1 <= 0)
+                {
+                    keranjang.RemoveAt(idx);
+                }
+                else
+                {
+                    keranjang[idx] = (item.produk, item.jumlah - 1);
+                }
+
+                UpdateRingkasan();
+            }
+        }
+
         // =====================================================================
-        // BUTTON BAYAR masuk ke v_pembayaran
+        // BUTTON BAYAR
         // =====================================================================
         private void btnbayar_Click(object sender, EventArgs e)
         {
@@ -284,8 +378,6 @@ namespace Project_Tanamin.app.view
                 MessageBox.Show("Keranjang masih kosong!");
                 return;
             }
-
-            int total = HitungTotal();
 
             v_pembayaran bayar = new v_pembayaran(keranjang);
             bayar.Show();

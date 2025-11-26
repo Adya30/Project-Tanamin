@@ -16,7 +16,7 @@ namespace Project_Tanamin.app.controller
         }
 
         public List<(m_transaksi transaksi, m_detailtransaksi detail, m_produk produk)>
-            GetPesananByUser(int userId, string status)
+    GetPesananBelumSelesaiByUser(int userId)
         {
             var list = new List<(m_transaksi, m_detailtransaksi, m_produk)>();
 
@@ -25,25 +25,23 @@ namespace Project_Tanamin.app.controller
                 conn.Open();
 
                 string query = @"
-                    SELECT 
-                        t.id_transaksi, t.tanggal_transaksi, t.status_transaksi, 
-                        t.pembayaran, t.detail_alamat,
+            SELECT t.id_transaksi, t.tanggal_transaksi, t.status_transaksi, 
+                   t.pembayaran, t.detail_alamat,
 
-                        d.id_detailtransaksi, d.jumlah, d.harga_satuan, d.id_produk,
+                   d.id_detailtransaksi, d.jumlah, d.harga_satuan, d.id_produk,
 
-                        p.id_produk, p.nama_produk, p.nama_kategori, p.deskripsi
-
-                    FROM transaksi t
-                    INNER JOIN detail_transaksi d ON t.id_transaksi = d.id_transaksi
-                    INNER JOIN produk p ON d.id_produk = p.id_produk
-                    WHERE t.id_user = @uid AND t.status_transaksi = @status
-                    ORDER BY t.tanggal_transaksi DESC;
-                ";
+                   p.id_produk, p.nama_produk, p.nama_kategori, p.deskripsi
+            FROM transaksi t
+            INNER JOIN detail_transaksi d ON t.id_transaksi = d.id_transaksi
+            INNER JOIN produk p ON d.id_produk = p.id_produk
+            WHERE t.id_user = @uid 
+              AND t.status_transaksi != 'Selesai'
+            ORDER BY t.tanggal_transaksi DESC;
+        ";
 
                 using (var cmd = new NpgsqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@uid", userId);
-                    cmd.Parameters.AddWithValue("@status", status);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -62,7 +60,7 @@ namespace Project_Tanamin.app.controller
                             var detail = new m_detailtransaksi
                             {
                                 id_detailtransaksi = reader.GetInt32(5),
-                                jumlah_transaksi = reader.GetInt32(6),   // <== jumlah dari DB
+                                jumlah_transaksi = reader.GetInt32(6),
                                 harga_satuan = reader.GetInt32(7),
                                 id_transaksi = transaksi.id_transaksi,
                                 id_produk = reader.GetInt32(8)
@@ -84,5 +82,108 @@ namespace Project_Tanamin.app.controller
 
             return list;
         }
+
+
+        public List<(m_transaksi transaksi, m_detailtransaksi detail, m_produk produk, User user)>
+        GetSemuaPesananAdmin()
+        {
+            var list = new List<(m_transaksi, m_detailtransaksi, m_produk, User)>();
+
+            using (var conn = db.getConn())
+            {
+                conn.Open();
+
+                string query = @"
+            SELECT 
+                t.id_transaksi, t.tanggal_transaksi, t.status_transaksi, 
+                t.pembayaran, t.detail_alamat, t.id_user,
+
+                d.id_detailtransaksi, d.jumlah, d.harga_satuan, d.id_produk,
+
+                p.id_produk, p.nama_produk, p.nama_kategori, p.deskripsi,
+
+                u.id_user, u.nama_lengkap
+            FROM transaksi t
+            INNER JOIN detail_transaksi d ON t.id_transaksi = d.id_transaksi
+            INNER JOIN produk p ON d.id_produk = p.id_produk
+            INNER JOIN users u ON t.id_user = u.id_user
+            ORDER BY t.tanggal_transaksi DESC;
+        ";
+
+                using (var cmd = new NpgsqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var transaksi = new m_transaksi
+                        {
+                            id_transaksi = reader.GetInt32(0),
+                            tanggal_transaksi = reader.GetDateTime(1),
+                            status_transaksi = reader.GetString(2),
+                            pembayaran = reader.GetString(3),
+                            detail_alamat = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            id_user = reader.GetInt32(5),
+                        };
+
+                        var detail = new m_detailtransaksi
+                        {
+                            id_detailtransaksi = reader.GetInt32(6),
+                            jumlah_transaksi = reader.GetInt32(7),
+                            harga_satuan = reader.GetInt32(8),
+                            id_transaksi = transaksi.id_transaksi,
+                            id_produk = reader.GetInt32(9)
+                        };
+
+                        var produk = new m_produk
+                        {
+                            IdProduk = reader.GetInt32(10),
+                            NamaProduk = reader.GetString(11),
+                            NamaKategori = reader.GetString(12),
+                            Deskripsi = reader.IsDBNull(13) ? "" : reader.GetString(13)
+                        };
+
+                        var user = new User
+                        {
+                            IdUser = reader.GetInt32(14),
+                            NamaLengkap = reader.GetString(15)
+                        };
+
+                        list.Add((transaksi, detail, produk, user));
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public bool UpdateStatusPesanan(int idTransaksi, string statusBaru)
+        {
+            try
+            {
+                using (var conn = db.getConn())
+                {
+                    conn.Open();
+                    string query = @"
+                UPDATE transaksi
+                SET status_transaksi = @status
+                WHERE id_transaksi = @id";
+
+                    using (var cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@status", statusBaru);
+                        cmd.Parameters.AddWithValue("@id", idTransaksi);
+
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+
     }
 }

@@ -46,7 +46,7 @@
             // 
             btnlogout.BackgroundImage = (Image)resources.GetObject("btnlogout.BackgroundImage");
             btnlogout.Cursor = Cursors.Hand;
-            btnlogout.Location = new Point(23, 937);
+            btnlogout.Location = new Point(23, 936);
             btnlogout.Name = "btnlogout";
             btnlogout.Size = new Size(340, 64);
             btnlogout.TabIndex = 11;

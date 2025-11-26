@@ -46,7 +46,7 @@
             // 
             btnlogout.BackgroundImage = (Image)resources.GetObject("btnlogout.BackgroundImage");
             btnlogout.Cursor = Cursors.Hand;
-            btnlogout.Location = new Point(23, 935);
+            btnlogout.Location = new Point(23, 953);
             btnlogout.Name = "btnlogout";
             btnlogout.Size = new Size(340, 64);
             btnlogout.TabIndex = 17;
@@ -112,9 +112,9 @@
             // 
             richTextBox1.BorderStyle = BorderStyle.None;
             richTextBox1.Font = new Font("Segoe UI", 13F);
-            richTextBox1.Location = new Point(1139, 539);
+            richTextBox1.Location = new Point(1116, 748);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(539, 343);
+            richTextBox1.Size = new Size(623, 199);
             richTextBox1.TabIndex = 20;
             richTextBox1.Text = "";
             // 
@@ -122,18 +122,19 @@
             // 
             dateTimePicker1.AccessibleRole = AccessibleRole.IpAddress;
             dateTimePicker1.CalendarFont = new Font("Segoe UI", 15F);
-            dateTimePicker1.Location = new Point(441, 265);
+            dateTimePicker1.Font = new Font("Segoe UI", 12F);
+            dateTimePicker1.Location = new Point(1116, 295);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(300, 31);
+            dateTimePicker1.Size = new Size(378, 39);
             dateTimePicker1.TabIndex = 21;
             // 
             // richTextBox2
             // 
             richTextBox2.BorderStyle = BorderStyle.None;
             richTextBox2.Font = new Font("Segoe UI", 13F);
-            richTextBox2.Location = new Point(441, 539);
+            richTextBox2.Location = new Point(1116, 442);
             richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(630, 343);
+            richTextBox2.Size = new Size(623, 202);
             richTextBox2.TabIndex = 22;
             richTextBox2.Text = "";
             // 

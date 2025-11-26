@@ -31,7 +31,7 @@ namespace Project_Tanamin.app.view
             dataGridView1.Columns.Clear();
 
             dataGridView1.Columns.Add("Tanggal", "Tanggal");
-            dataGridView1.Columns.Add("Pertanyaan", "Pertanyaan");
+            dataGridView1.Columns.Add("Kritik Saran", "Pertanyaan");
             dataGridView1.Columns.Add("Respon", "Respon");
 
             DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn();
@@ -84,7 +84,6 @@ namespace Project_Tanamin.app.view
             string pertanyaan = dataGridView1.Rows[e.RowIndex].Cells[1].Value?.ToString();
             string respon = dataGridView1.Rows[e.RowIndex].Cells[2].Value?.ToString();
 
-            // ---------------- TOMBOL EDIT ----------------
             if (e.ColumnIndex == 3)
             {
                 if (!string.IsNullOrEmpty(respon))
@@ -100,7 +99,6 @@ namespace Project_Tanamin.app.view
                 this.Hide();
             }
 
-            // ---------------- TOMBOL HAPUS ----------------
             if (e.ColumnIndex == 4)
             {
                 if (!string.IsNullOrEmpty(respon))
@@ -128,7 +126,6 @@ namespace Project_Tanamin.app.view
             }
         }
 
-        // Navigasi antar halaman
         private void btnkatalaogcustomer_Click(object sender, EventArgs e)
         {
             new v_katalogcustomer().Show();
@@ -140,9 +137,9 @@ namespace Project_Tanamin.app.view
 
         private void btnpesanancustomer_Click(object sender, EventArgs e)
         {
-            //var formPesanan = new v_pesanancustomer();
-            //formPesanan.Show();
-            //this.Close();
+            var formPesanan = new v_pesanancustomer();
+            formPesanan.Show();
+            this.Close();
         }
 
         private void btnriwayatcustomer_Click(object sender, EventArgs e)
@@ -184,7 +181,8 @@ namespace Project_Tanamin.app.view
             dataGridView1.BackgroundColor = Color.White;
             dataGridView1.EnableHeadersVisualStyles = false;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(63, 175, 71);
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113); // hijau
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             dataGridView1.ColumnHeadersHeight = 40;
@@ -194,9 +192,6 @@ namespace Project_Tanamin.app.view
             dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
 
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(235, 255, 238);
-
-            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView1.GridColor = Color.FromArgb(220, 240, 220);
 
             dataGridView1.DefaultCellStyle.SelectionBackColor = Color.FromArgb(63, 175, 71);
             dataGridView1.DefaultCellStyle.SelectionForeColor = Color.White;

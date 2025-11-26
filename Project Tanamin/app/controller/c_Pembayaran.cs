@@ -15,46 +15,6 @@ namespace Project_Tanamin.app.controller
             db = new connectdata();
         }
 
-        /// <summary>
-        /// Proses pembayaran: otomatis pakai CurrentUser.IdUser
-        /// </summary>
-        /// <param name="keranjang">List produk + jumlah</param>
-        /// <param name="bank">Nama bank</param>
-        /// <param name="alamatLengkap">Alamat pengiriman</param>
-        /// <param name="statusTransaksi">Status awal (misal "Diantar")</param>
-        /// <returns>True jika sukses</returns>
-        public bool ProsesPembayaran(List<(m_produk produk, int jumlah)> keranjang, string bank, string alamatLengkap, string statusTransaksi = "Diantar")
-        {
-            if (c_user.CurrentUser == null)
-                throw new Exception("User belum login");
-
-            var transaksi = new m_transaksi
-            {
-                tanggal_transaksi = DateTime.Now,
-                status_transaksi = statusTransaksi,
-                pembayaran = bank,
-                detail_alamat = alamatLengkap,
-                id_user = c_user.CurrentUser.IdUser,
-                id_desa = null // jika ingin diisi, bisa ambil dari UI
-            };
-
-            var listDetail = new List<m_detailtransaksi>();
-            foreach (var item in keranjang)
-            {
-                listDetail.Add(new m_detailtransaksi
-                {
-                    id_produk = item.produk.IdProduk,
-                    jumlah_transaksi = item.jumlah,
-                    harga_satuan = item.produk.HargaSatuan
-                });
-            }
-
-            return SimpanTransaksi(transaksi, listDetail);
-        }
-
-        /// <summary>
-        /// Simpan transaksi + detail transaksi ke database
-        /// </summary>
         private bool SimpanTransaksi(m_transaksi transaksi, List<m_detailtransaksi> listDetail)
         {
             try
@@ -66,11 +26,10 @@ namespace Project_Tanamin.app.controller
                     {
                         try
                         {
-                            // 1. Insert transaksi utama
                             string queryTransaksi = @"
                                 INSERT INTO transaksi 
-                                (tanggal_transaksi, status_transaksi, pembayaran, detail_alamat, id_user, id_desa) 
-                                VALUES (@tgl, @status, @bayar, @alamat, @id_user, @id_desa) 
+                                (tanggal_transaksi, status_transaksi, pembayaran, detail_alamat, id_user) 
+                                VALUES (@tgl, @status, @bayar, @alamat, @id_user) 
                                 RETURNING id_transaksi";
 
                             int idTransaksi;
@@ -81,12 +40,10 @@ namespace Project_Tanamin.app.controller
                                 cmd.Parameters.AddWithValue("@bayar", transaksi.pembayaran ?? "");
                                 cmd.Parameters.AddWithValue("@alamat", transaksi.detail_alamat ?? "");
                                 cmd.Parameters.AddWithValue("@id_user", transaksi.id_user ?? (object)DBNull.Value);
-                                cmd.Parameters.AddWithValue("@id_desa", transaksi.id_desa ?? (object)DBNull.Value);
 
                                 idTransaksi = Convert.ToInt32(cmd.ExecuteScalar());
                             }
 
-                            // 2. Insert detail transaksi & kurangi stok
                             foreach (var item in listDetail)
                             {
                                 string queryDetail = @"
@@ -103,7 +60,6 @@ namespace Project_Tanamin.app.controller
                                     cmd.ExecuteNonQuery();
                                 }
 
-                                // Kurangi stok
                                 string queryKurangiStok = @"
                                     UPDATE produk
                                     SET stok_produk = stok_produk - @jumlah
@@ -140,7 +96,6 @@ namespace Project_Tanamin.app.controller
 
         public bool ProsesPembayaran(int idUser, List<(m_produk produk, int jumlah)> keranjang, string bank, string alamat, string status)
         {
-            // konversi keranjang ke List<m_detailtransaksi>
             List<m_detailtransaksi> listDetail = new List<m_detailtransaksi>();
             foreach (var item in keranjang)
             {
@@ -159,7 +114,6 @@ namespace Project_Tanamin.app.controller
                 pembayaran = bank,
                 detail_alamat = alamat,
                 id_user = idUser,
-                id_desa = null // kalau belum ada, bisa dikosongkan
             };
 
             return SimpanTransaksi(transaksi, listDetail);

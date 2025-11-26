@@ -150,6 +150,7 @@
             Controls.Add(btnkatalogadmin);
             Name = "v_katalogadmin";
             Text = "v_katalogadmin";
+            Load += v_katalogadmin_Load;
             panelflow.ResumeLayout(false);
             ResumeLayout(false);
         }

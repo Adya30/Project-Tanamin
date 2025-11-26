@@ -37,40 +37,50 @@
             btnbatal = new Button();
             btnsimpan = new Button();
             harga = new TextBox();
+            btnlogout = new Button();
+            btnprofiladmin = new Button();
+            btnfeedbackadmin = new Button();
+            btnriwayatadmin = new Button();
+            btnpesananadmin = new Button();
+            btnkatalogadmin = new Button();
             ((System.ComponentModel.ISupportInitialize)btnpicture).BeginInit();
             SuspendLayout();
             // 
             // btnpicture
             // 
             btnpicture.BackgroundImage = (Image)resources.GetObject("btnpicture.BackgroundImage");
-            btnpicture.Location = new Point(443, 220);
+            btnpicture.Location = new Point(510, 209);
             btnpicture.Name = "btnpicture";
-            btnpicture.Size = new Size(418, 412);
+            btnpicture.Size = new Size(385, 385);
             btnpicture.TabIndex = 0;
             btnpicture.TabStop = false;
             btnpicture.Click += btnpicture_Click;
             // 
             // nama_produk
             // 
+            nama_produk.BorderStyle = BorderStyle.None;
             nama_produk.Font = new Font("Segoe UI", 13F);
-            nama_produk.Location = new Point(942, 265);
+            nama_produk.Location = new Point(1002, 267);
             nama_produk.Name = "nama_produk";
-            nama_produk.Size = new Size(656, 42);
+            nama_produk.Size = new Size(676, 35);
             nama_produk.TabIndex = 1;
             // 
             // stok
             // 
+            stok.BorderStyle = BorderStyle.None;
             stok.Font = new Font("Segoe UI", 13F);
-            stok.Location = new Point(942, 501);
+            stok.Location = new Point(1010, 540);
             stok.Name = "stok";
-            stok.Size = new Size(188, 42);
+            stok.Size = new Size(110, 35);
             stok.TabIndex = 2;
             // 
             // deskripsi
             // 
-            deskripsi.Location = new Point(942, 734);
+            deskripsi.BorderStyle = BorderStyle.None;
+            deskripsi.Font = new Font("Segoe UI", 13F);
+            deskripsi.Location = new Point(532, 704);
             deskripsi.Name = "deskripsi";
-            deskripsi.Size = new Size(656, 235);
+            deskripsi.Size = new Size(1126, 274);
             deskripsi.TabIndex = 3;
             deskripsi.Text = "";
             // 
@@ -79,9 +89,9 @@
             comboBoxjenisproduk.Font = new Font("Segoe UI", 13F);
             comboBoxjenisproduk.FormattingEnabled = true;
             comboBoxjenisproduk.Items.AddRange(new object[] { "Obat Tanaman", "Pupuk" });
-            comboBoxjenisproduk.Location = new Point(942, 388);
+            comboBoxjenisproduk.Location = new Point(995, 400);
             comboBoxjenisproduk.Name = "comboBoxjenisproduk";
-            comboBoxjenisproduk.Size = new Size(312, 44);
+            comboBoxjenisproduk.Size = new Size(690, 44);
             comboBoxjenisproduk.TabIndex = 4;
             // 
             // btnbatal
@@ -108,11 +118,78 @@
             // 
             // harga
             // 
+            harga.BorderStyle = BorderStyle.None;
             harga.Font = new Font("Segoe UI", 13F);
-            harga.Location = new Point(942, 626);
+            harga.Location = new Point(1195, 537);
             harga.Name = "harga";
-            harga.Size = new Size(340, 42);
+            harga.Size = new Size(469, 35);
             harga.TabIndex = 19;
+            // 
+            // btnlogout
+            // 
+            btnlogout.BackgroundImage = (Image)resources.GetObject("btnlogout.BackgroundImage");
+            btnlogout.Cursor = Cursors.Hand;
+            btnlogout.Location = new Point(24, 934);
+            btnlogout.Name = "btnlogout";
+            btnlogout.Size = new Size(339, 65);
+            btnlogout.TabIndex = 25;
+            btnlogout.UseVisualStyleBackColor = true;
+            btnlogout.Click += btnlogout_Click;
+            // 
+            // btnprofiladmin
+            // 
+            btnprofiladmin.BackgroundImage = (Image)resources.GetObject("btnprofiladmin.BackgroundImage");
+            btnprofiladmin.Cursor = Cursors.Hand;
+            btnprofiladmin.Location = new Point(24, 523);
+            btnprofiladmin.Name = "btnprofiladmin";
+            btnprofiladmin.Size = new Size(339, 65);
+            btnprofiladmin.TabIndex = 24;
+            btnprofiladmin.UseVisualStyleBackColor = true;
+            btnprofiladmin.Click += btnprofiladmin_Click;
+            // 
+            // btnfeedbackadmin
+            // 
+            btnfeedbackadmin.BackgroundImage = (Image)resources.GetObject("btnfeedbackadmin.BackgroundImage");
+            btnfeedbackadmin.Cursor = Cursors.Hand;
+            btnfeedbackadmin.Location = new Point(24, 442);
+            btnfeedbackadmin.Name = "btnfeedbackadmin";
+            btnfeedbackadmin.Size = new Size(339, 65);
+            btnfeedbackadmin.TabIndex = 23;
+            btnfeedbackadmin.UseVisualStyleBackColor = true;
+            btnfeedbackadmin.Click += btnfeedbackadmin_Click;
+            // 
+            // btnriwayatadmin
+            // 
+            btnriwayatadmin.BackgroundImage = (Image)resources.GetObject("btnriwayatadmin.BackgroundImage");
+            btnriwayatadmin.Cursor = Cursors.Hand;
+            btnriwayatadmin.Location = new Point(24, 361);
+            btnriwayatadmin.Name = "btnriwayatadmin";
+            btnriwayatadmin.Size = new Size(339, 65);
+            btnriwayatadmin.TabIndex = 22;
+            btnriwayatadmin.UseVisualStyleBackColor = true;
+            btnriwayatadmin.Click += btnriwayatadmin_Click;
+            // 
+            // btnpesananadmin
+            // 
+            btnpesananadmin.BackgroundImage = (Image)resources.GetObject("btnpesananadmin.BackgroundImage");
+            btnpesananadmin.Cursor = Cursors.Hand;
+            btnpesananadmin.Location = new Point(24, 278);
+            btnpesananadmin.Name = "btnpesananadmin";
+            btnpesananadmin.Size = new Size(339, 65);
+            btnpesananadmin.TabIndex = 21;
+            btnpesananadmin.UseVisualStyleBackColor = true;
+            btnpesananadmin.Click += btnpesananadmin_Click;
+            // 
+            // btnkatalogadmin
+            // 
+            btnkatalogadmin.BackgroundImage = (Image)resources.GetObject("btnkatalogadmin.BackgroundImage");
+            btnkatalogadmin.Cursor = Cursors.Hand;
+            btnkatalogadmin.Location = new Point(24, 196);
+            btnkatalogadmin.Name = "btnkatalogadmin";
+            btnkatalogadmin.Size = new Size(339, 65);
+            btnkatalogadmin.TabIndex = 20;
+            btnkatalogadmin.UseVisualStyleBackColor = true;
+            btnkatalogadmin.Click += btnkatalogadmin_Click;
             // 
             // v_tambahkatalog
             // 
@@ -120,6 +197,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(btnlogout);
+            Controls.Add(btnprofiladmin);
+            Controls.Add(btnfeedbackadmin);
+            Controls.Add(btnriwayatadmin);
+            Controls.Add(btnpesananadmin);
+            Controls.Add(btnkatalogadmin);
             Controls.Add(harga);
             Controls.Add(btnbatal);
             Controls.Add(btnsimpan);
@@ -145,5 +228,11 @@
         private Button btnbatal;
         private Button btnsimpan;
         private TextBox harga;
+        private Button btnlogout;
+        private Button btnprofiladmin;
+        private Button btnfeedbackadmin;
+        private Button btnriwayatadmin;
+        private Button btnpesananadmin;
+        private Button btnkatalogadmin;
     }
 }

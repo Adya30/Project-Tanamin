@@ -39,7 +39,6 @@
             labelkembalian = new Label();
             textBoxnominal = new TextBox();
             textBoxdesa = new TextBox();
-            textBoxkecamatan = new TextBox();
             btnbayar = new Button();
             btnbatal = new Button();
             textboxdetailalamat = new RichTextBox();
@@ -49,11 +48,11 @@
             // 
             labeltotal.AutoSize = true;
             labeltotal.BackColor = Color.Transparent;
-            labeltotal.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            labeltotal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             labeltotal.ForeColor = Color.DarkGreen;
-            labeltotal.Location = new Point(361, 906);
+            labeltotal.Location = new Point(235, 921);
             labeltotal.Name = "labeltotal";
-            labeltotal.Size = new Size(88, 36);
+            labeltotal.Size = new Size(96, 38);
             labeltotal.TabIndex = 0;
             labeltotal.Text = "label1";
             // 
@@ -133,9 +132,9 @@
             // 
             textBoxnominal.BorderStyle = BorderStyle.None;
             textBoxnominal.Font = new Font("Segoe UI", 15F);
-            textBoxnominal.Location = new Point(953, 274);
+            textBoxnominal.Location = new Point(966, 274);
             textBoxnominal.Name = "textBoxnominal";
-            textBoxnominal.Size = new Size(530, 40);
+            textBoxnominal.Size = new Size(481, 40);
             textBoxnominal.TabIndex = 10;
             textBoxnominal.TextChanged += textBoxnominal_TextChanged;
             // 
@@ -147,15 +146,6 @@
             textBoxdesa.Name = "textBoxdesa";
             textBoxdesa.Size = new Size(321, 40);
             textBoxdesa.TabIndex = 12;
-            // 
-            // textBoxkecamatan
-            // 
-            textBoxkecamatan.BorderStyle = BorderStyle.None;
-            textBoxkecamatan.Font = new Font("Segoe UI", 15F);
-            textBoxkecamatan.Location = new Point(1591, 879);
-            textBoxkecamatan.Name = "textBoxkecamatan";
-            textBoxkecamatan.Size = new Size(241, 40);
-            textBoxkecamatan.TabIndex = 13;
             // 
             // btnbayar
             // 
@@ -180,9 +170,9 @@
             // textboxdetailalamat
             // 
             textboxdetailalamat.BorderStyle = BorderStyle.None;
-            textboxdetailalamat.Location = new Point(920, 753);
+            textboxdetailalamat.Location = new Point(867, 722);
             textboxdetailalamat.Name = "textboxdetailalamat";
-            textboxdetailalamat.Size = new Size(949, 218);
+            textboxdetailalamat.Size = new Size(900, 256);
             textboxdetailalamat.TabIndex = 16;
             textboxdetailalamat.Text = "";
             // 
@@ -195,7 +185,6 @@
             Controls.Add(textboxdetailalamat);
             Controls.Add(btnbatal);
             Controls.Add(btnbayar);
-            Controls.Add(textBoxkecamatan);
             Controls.Add(textBoxdesa);
             Controls.Add(textBoxnominal);
             Controls.Add(labelkembalian);
@@ -225,7 +214,6 @@
         private Label labelkembalian;
         private TextBox textBoxnominal;
         private TextBox textBoxdesa;
-        private TextBox textBoxkecamatan;
         private Button btnbayar;
         private Button btnbatal;
         private RichTextBox textboxdetailalamat;
