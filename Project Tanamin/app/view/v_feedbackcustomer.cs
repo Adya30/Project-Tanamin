@@ -54,9 +54,7 @@ namespace Project_Tanamin.app.view
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        // ============================================================
-        // LOAD FEEDBACK CUSTOMER
-        // ============================================================
+
         public void LoadFeedback()
         {
             dataGridView1.Rows.Clear();
@@ -73,9 +71,6 @@ namespace Project_Tanamin.app.view
             }
         }
 
-        // ============================================================
-        // EVENT EDIT & HAPUS
-        // ============================================================
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -132,7 +127,7 @@ namespace Project_Tanamin.app.view
             this.Close();
         }
 
-        private int? userId = c_user.CurrentUser?.IdUser; // misal diambil dari login
+        private int? userId = c_user.CurrentUser?.IdUser; 
         private List<(m_produk produk, int jumlah)> keranjangSementara = new List<(m_produk, int)>(); // keranjang sementara
 
         private void btnpesanancustomer_Click(object sender, EventArgs e)

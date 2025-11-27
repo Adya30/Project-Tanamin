@@ -5,15 +5,5 @@
     public string Username { get; set; }
     public string NoTelp { get; set; }
     public string Password { get; set; }
-    public virtual bool IsAdmin { get; }
-}
-
-public class Admin : User
-{
-    public override bool IsAdmin => true;
-}
-
-public class Customer : User
-{
-    public override bool IsAdmin => false;
+    public bool IsAdmin { get; set; } 
 }

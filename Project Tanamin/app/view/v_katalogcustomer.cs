@@ -20,9 +20,6 @@ namespace Project_Tanamin.app.view
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
 
-            // ======================================================
-            // FIX: BUAT PANEL KATALOG SCROLL
-            // ======================================================
             panelflow.AutoScroll = true;
             panelflow.FlowDirection = FlowDirection.LeftToRight;
             panelflow.WrapContents = true;
@@ -35,9 +32,6 @@ namespace Project_Tanamin.app.view
             UpdateRingkasan();
         }
 
-        // =====================================================================
-        // LOAD KATALOG
-        // =====================================================================
         public void LoadKatalog()
         {
             panelflow.Controls.Clear();
@@ -46,14 +40,15 @@ namespace Project_Tanamin.app.view
 
             foreach (var p in listProduk)
             {
+                if (p.StokProduk <= 0)
+                    continue; 
+
                 var card = CreateCard(p);
                 panelflow.Controls.Add(card);
             }
         }
 
-        // =====================================================================
-        // BUAT CARD PRODUK
-        // =====================================================================
+
         private Panel CreateCard(m_produk produk)
         {
             Panel card = new Panel
@@ -160,9 +155,6 @@ namespace Project_Tanamin.app.view
             return card;
         }
 
-        // =====================================================================
-        // KERANJANG
-        // =====================================================================
         private void TambahKeKeranjang(m_produk produk)
         {
             var idx = keranjang.FindIndex(x => x.produk.IdProduk == produk.IdProduk);
@@ -368,9 +360,6 @@ namespace Project_Tanamin.app.view
             }
         }
 
-        // =====================================================================
-        // BUTTON BAYAR
-        // =====================================================================
         private void btnbayar_Click(object sender, EventArgs e)
         {
             if (keranjang.Count == 0)
@@ -384,9 +373,6 @@ namespace Project_Tanamin.app.view
             this.Close();
         }
 
-        // =====================================================================
-        // MENU
-        // =====================================================================
         private void btnkatalaogcustomer_Click(object sender, EventArgs e)
         {
             new v_katalogcustomer(userId).Show();

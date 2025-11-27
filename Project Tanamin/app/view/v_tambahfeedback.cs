@@ -20,6 +20,9 @@ namespace Project_Tanamin.app.view
 
             SetLabelIfExists("lblMode", "Tambah Feedback");
             SetButtonTextIfExists("btnsimpan", "");
+
+            datetimefeedback.Value = DateTime.Now;
+            datetimefeedback.Enabled = false;
         }
 
         private void btnsimpan_Click(object sender, EventArgs e)

@@ -16,6 +16,8 @@ namespace Project_Tanamin.app.view
             this.WindowState = FormWindowState.Maximized;
             ctrl = new c_pesanan();
             LoadPesanan();
+
+            dataGridView1.DataBindingComplete += DataGridView1_DataBindingComplete;
         }
 
         private void LoadPesanan()
@@ -40,7 +42,7 @@ namespace Project_Tanamin.app.view
 
                 dt.Rows.Add(
                     item.transaksi.id_transaksi,
-                    item.transaksi.tanggal_transaksi.ToString("dd/MM/yyyy HH:mm"),
+                    item.transaksi.tanggal_transaksi.ToString("dd/MM/yyyy"),
                     item.user.NamaLengkap,
                     item.produk.NamaProduk,
                     item.detail.jumlah_transaksi,
@@ -60,46 +62,53 @@ namespace Project_Tanamin.app.view
             dataGridView1.ReadOnly = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.AllowUserToAddRows = false;
-
-            // Ganti warna header menjadi hijau
             dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113); // hijau
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113);
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             dataGridView1.ColumnHeadersHeight = 40;
-
-            // Ganti font dan warna baris alternatif
             dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(220, 248, 198); // hijau muda
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(220, 248, 198);
             dataGridView1.RowHeadersVisible = false;
+
+            if (dataGridView1.Columns.Contains("Status"))
+                dataGridView1.Columns.Remove("Status");
 
             DataGridViewComboBoxColumn comboStatus = new DataGridViewComboBoxColumn();
             comboStatus.Name = "Status";
             comboStatus.HeaderText = "Status";
             comboStatus.DataPropertyName = "Status";
-
-            comboStatus.Items.Add("Diproses");
-            comboStatus.Items.Add("Dikirim");
-            comboStatus.Items.Add("Selesai");
-            comboStatus.Items.Add("Dibatalkan");
-
-            dataGridView1.Columns.Remove("Status");
+            comboStatus.Items.AddRange("Diproses", "Dikirim", "Selesai", "Dibatalkan");
             dataGridView1.Columns.Add(comboStatus);
 
-            if (!dataGridView1.Columns.Contains("Simpan"))
-            {
-                DataGridViewButtonColumn btnSave = new DataGridViewButtonColumn();
-                btnSave.Name = "Simpan";
-                btnSave.HeaderText = "Aksi";
-                btnSave.Text = "Simpan";
-                btnSave.UseColumnTextForButtonValue = true;
-                btnSave.Width = 80;
+            if (dataGridView1.Columns.Contains("Simpan"))
+                dataGridView1.Columns.Remove("Simpan");
 
-                dataGridView1.Columns.Add(btnSave);
-            }
+            DataGridViewButtonColumn btnSave = new DataGridViewButtonColumn();
+            btnSave.Name = "Simpan";
+            btnSave.HeaderText = "Aksi";
+            btnSave.Text = "Simpan";
+            btnSave.UseColumnTextForButtonValue = true;
+            btnSave.Width = 80;
+            dataGridView1.Columns.Add(btnSave);
+
+            btnSave.DisplayIndex = dataGridView1.Columns.Count - 1;
+            comboStatus.DisplayIndex = btnSave.DisplayIndex - 1;
 
             dataGridView1.CellClick -= DataGridView1_CellClick;
             dataGridView1.CellClick += DataGridView1_CellClick;
+
+
+        }
+
+        private void DataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dataGridView1.Columns.Contains("Status") && dataGridView1.Columns.Contains("Simpan"))
+            {
+                // ComboStatus sebelum tombol
+                dataGridView1.Columns["Status"].DisplayIndex = dataGridView1.Columns.Count - 2;
+                dataGridView1.Columns["Simpan"].DisplayIndex = dataGridView1.Columns.Count - 1;
+            }
         }
 
 

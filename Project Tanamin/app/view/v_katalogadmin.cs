@@ -146,20 +146,27 @@ namespace Project_Tanamin.app.view
             };
             btnHardDelete.Click += (s, e) =>
             {
-                var confirm = MessageBox.Show($"Hard delete produk {produk.NamaProduk}? (hapus permanen)", "Konfirmasi", MessageBoxButtons.YesNo);
+                var confirm = MessageBox.Show(
+                    $"Apakah Anda yakin ingin menghapus produk '{produk.NamaProduk}'?",
+                    "Konfirmasi Hapus",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
                 if (confirm == DialogResult.Yes)
                 {
-                    if (ctrlProduk.HardDeleteProduk(produk.IdProduk))
+                    if (ctrlProduk.HapusProduk(produk.IdProduk))
                     {
-                        MessageBox.Show("Produk berhasil dihapus permanen");
-                        LoadKatalog();
+                        MessageBox.Show("Produk berhasil dihapus (stok diset 0).", "Sukses");
+                        LoadKatalog(); 
                     }
                     else
                     {
-                        MessageBox.Show("Gagal hapus produk");
+                        MessageBox.Show("Gagal menghapus produk.", "Error");
                     }
                 }
             };
+
 
             card.Controls.Add(btnEdit);
             card.Controls.Add(btnHardDelete);

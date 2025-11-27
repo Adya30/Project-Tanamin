@@ -13,6 +13,9 @@ namespace Project_Tanamin.app.view
         {
             InitializeComponent();
             ctrl = new c_feedback();
+
+            dateTimePicker1.Value = DateTime.Now;
+            dateTimePicker1.Enabled = false;
         }
 
         public void LoadFeedbackForResponse(int id, string tanggal, string pertanyaan)
@@ -20,6 +23,7 @@ namespace Project_Tanamin.app.view
             idFeedback = id;
             dateTimePicker1.Text = tanggal;
             richTextBox2.Text = pertanyaan;
+            richTextBox2.ReadOnly = true;
         }
 
         private void btnsimpan_Click_1(object sender, EventArgs e)
