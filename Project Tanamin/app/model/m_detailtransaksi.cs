@@ -10,9 +10,9 @@ namespace Project_Tanamin.app.model
     {
         public int id_detailtransaksi { get; set; }
         public int jumlah_transaksi { get; set; }
+        public int harga_satuan { get; set; }
         public int? id_transaksi { get; set; }
         public int? id_produk { get; set; }
-        public int harga_satuan { get; set; }
     }
 
 }

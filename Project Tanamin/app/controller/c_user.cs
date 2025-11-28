@@ -56,7 +56,6 @@ namespace Project_Tanamin.app.controller
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                // Polymorphism + Inheritance
                 User akun = Convert.ToBoolean(reader["is_admin"]) ? (User)new AdminUser() : new CustomerUser();
                 akun.IdUser = reader.GetInt32(reader.GetOrdinal("id_user"));
                 akun.Username = reader["username"].ToString();
@@ -68,7 +67,7 @@ namespace Project_Tanamin.app.controller
                 return akun is AdminUser ? "LOGIN_ADMIN" : "LOGIN_CUSTOMER";
             }
 
-            return "LOGIN_GAGAL"; // Abstraction
+            return "LOGIN_GAGAL"; 
         }
 
         public string UpdateProfile(string nama, string username, string telp, string pass, string konfirmasi)
@@ -105,7 +104,7 @@ namespace Project_Tanamin.app.controller
             CurrentUser.Password = pass;
             if (CurrentUser is CustomerUser) { CurrentUser.NamaLengkap = nama; CurrentUser.NoTelp = telp; }
 
-            return "Update Profil Berhasil"; // Abstraction
+            return "Update Profil Berhasil";
         }
 
         public void Logout() { CurrentUser = null; } // Encapsulation

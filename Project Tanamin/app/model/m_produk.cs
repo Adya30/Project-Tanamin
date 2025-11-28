@@ -10,5 +10,6 @@
         public string Deskripsi { get; set; }
         public bool IsDeleted { get; set; }
         public int HargaSatuan { get; set; }
+        public int? IdDetailPembelian { get; set; }
     }
 }

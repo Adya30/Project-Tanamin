@@ -16,7 +16,7 @@ namespace Project_Tanamin.app.controller
             db = new connectdata();
         }
 
-        // Abstraction: semua operasi CRUD harus diimplementasikan di subclass
+        // Abstraction
         public abstract bool AddProduk(m_produk p);
         public abstract bool UpdateProduk(m_produk p);
         public abstract bool HapusProduk(int id);
@@ -57,7 +57,6 @@ namespace Project_Tanamin.app.controller
     //polymorphism
     public class c_produk : ProdukBaseController
     {
-        // Override semua method abstrak
         public override bool AddProduk(m_produk p)
         {
             try
