@@ -108,7 +108,7 @@ namespace Project_Tanamin.app.view
             );
 
             if (konfirmasi != DialogResult.Yes)
-                return; 
+                return;
 
             string alamatLengkap = $"{textboxdetailalamat.Text.Trim()}";
             var ctrlPembayaran = new c_Pembayaran();
@@ -120,7 +120,7 @@ namespace Project_Tanamin.app.view
                 return;
             }
 
-            MessageBox.Show("Pembayaran berhasil! Pesanan sedang diproses.", "Sukses", 
+            MessageBox.Show("Pembayaran berhasil! Pesanan sedang diproses.", "Sukses",
             MessageBoxButtons.OK, MessageBoxIcon.Information);
             keranjang.Clear();
 

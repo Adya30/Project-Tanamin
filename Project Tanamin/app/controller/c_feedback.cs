@@ -21,9 +21,6 @@ namespace Project_Tanamin.app.controller
             return new NpgsqlConnection(connString);
         }
 
-        // ====================================================
-        // CUSTOMER - TAMBAH FEEDBACK
-        // ====================================================
         public bool TambahFeedback(string pertanyaan, DateTime tanggal)
         {
             try
@@ -48,9 +45,6 @@ namespace Project_Tanamin.app.controller
             }
         }
 
-        // ====================================================
-        // CUSTOMER - UPDATE FEEDBACK
-        // ====================================================
         public bool UpdateFeedback(string oldTanggal, string oldPertanyaan, DateTime newTanggal, string newPertanyaan)
         {
             try
@@ -77,9 +71,6 @@ namespace Project_Tanamin.app.controller
             }
         }
 
-        // ====================================================
-        // CUSTOMER - DELETE FEEDBACK
-        // ====================================================
         public bool DeleteFeedback(string tanggal, string pertanyaan)
         {
             try
@@ -104,9 +95,6 @@ namespace Project_Tanamin.app.controller
             }
         }
 
-        // ====================================================
-        // ADMIN - BERIKAN RESPON
-        // ====================================================
         public bool AddResponse(int id_feedback, string respon)
         {
             try
@@ -129,9 +117,6 @@ namespace Project_Tanamin.app.controller
             }
         }
 
-        // ====================================================
-        // CUSTOMER - AMBIL FEEDBACK SENDIRI
-        // ====================================================
         public List<Feedback> GetCustomerFeedback()
         {
             var list = new List<Feedback>();
@@ -150,9 +135,6 @@ namespace Project_Tanamin.app.controller
             return list;
         }
 
-        // ====================================================
-        // ADMIN - AMBIL SEMUA FEEDBACK
-        // ====================================================
         public List<Feedback> GetAllFeedback()
         {
             var list = new List<Feedback>();
@@ -170,9 +152,6 @@ namespace Project_Tanamin.app.controller
             return list;
         }
 
-        // ====================================================
-        // HELPER - MAP DATABASE → MODEL
-        // ====================================================
         private Feedback ReadFeedback(NpgsqlDataReader reader)
         {
             return new Feedback

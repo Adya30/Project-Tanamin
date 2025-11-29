@@ -16,7 +16,7 @@ namespace Project_Tanamin.app.view
             this.WindowState = FormWindowState.Maximized;
 
             panelflow.AutoScroll = true;
-            panelflow.WrapContents = true;    
+            panelflow.WrapContents = true;
             panelflow.FlowDirection = FlowDirection.LeftToRight;
 
 
@@ -76,10 +76,21 @@ namespace Project_Tanamin.app.view
                 AutoEllipsis = true
             };
 
+            Label lblKategori = new Label
+            {
+                Text = produk.NamaKategori ?? "",
+                Top = lblNama.Bottom + 3, 
+                Left = 10,
+                Width = card.Width - 20,
+                Font = new Font("Arial", 9, FontStyle.Italic),
+                ForeColor = Color.DarkGreen,
+                AutoEllipsis = true
+            };
+
             Label lblStok = new Label
             {
                 Text = "Stok: " + produk.StokProduk,
-                Top = lblNama.Bottom + 5,
+                Top = lblKategori.Bottom + 3,
                 Left = 10,
                 Width = card.Width - 20,
                 ForeColor = produk.StokProduk == 0 ? Color.Red : Color.Black
@@ -112,6 +123,7 @@ namespace Project_Tanamin.app.view
 
             card.Controls.Add(pic);
             card.Controls.Add(lblNama);
+            card.Controls.Add(lblKategori);
             card.Controls.Add(lblStok);
             card.Controls.Add(lblHarga);
 
@@ -120,7 +132,7 @@ namespace Project_Tanamin.app.view
                 Text = "Edit",
                 Width = 110,
                 Height = 35,
-                Top = card.Height - 70,
+                Top = card.Height - 60,
                 Left = 10,
                 BackColor = Color.MediumSeaGreen,
                 ForeColor = Color.White,
@@ -133,43 +145,43 @@ namespace Project_Tanamin.app.view
                 this.Hide();
             };
 
-            Button btnHardDelete = new Button
-            {
-                Text = "Hapus",
-                Width = 110,
-                Height = 35,
-                Top = card.Height - 70,
-                Left = 135,
-                BackColor = Color.IndianRed,
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            btnHardDelete.Click += (s, e) =>
-            {
-                var confirm = MessageBox.Show(
-                    $"Apakah Anda yakin ingin menghapus produk '{produk.NamaProduk}'?",
-                    "Konfirmasi Hapus",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
+            //Button btnHardDelete = new Button
+            //{
+            //    Text = "Hapus",
+            //    Width = 110,
+            //    Height = 35,
+            //    Top = card.Height - 70,
+            //    Left = 135,
+            //    BackColor = Color.IndianRed,
+            //    ForeColor = Color.White,
+            //    FlatStyle = FlatStyle.Flat
+            //};
+            //btnHardDelete.Click += (s, e) =>
+            //{
+            //    var confirm = MessageBox.Show(
+            //        $"Apakah Anda yakin ingin menghapus produk '{produk.NamaProduk}'?",
+            //        "Konfirmasi Hapus",
+            //        MessageBoxButtons.YesNo,
+            //        MessageBoxIcon.Warning
+            //    );
 
-                if (confirm == DialogResult.Yes)
-                {
-                    if (ctrlProduk.HapusProduk(produk.IdProduk))
-                    {
-                        MessageBox.Show("Produk berhasil dihapus (stok diset 0).", "Sukses");
-                        LoadKatalog(); 
-                    }
-                    else
-                    {
-                        MessageBox.Show("Gagal menghapus produk.", "Error");
-                    }
-                }
-            };
+            //    if (confirm == DialogResult.Yes)
+            //    {
+            //        if (ctrlProduk.HapusProduk(produk.IdProduk))
+            //        {
+            //            MessageBox.Show("Produk berhasil dihapus (stok diset 0).", "Sukses");
+            //            LoadKatalog();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Gagal menghapus produk.", "Error");
+            //        }
+            //    }
+            //};
 
 
             card.Controls.Add(btnEdit);
-            card.Controls.Add(btnHardDelete);
+            //card.Controls.Add(btnHardDelete);
 
             return card;
         }
@@ -233,6 +245,12 @@ namespace Project_Tanamin.app.view
         private void v_katalogadmin_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void supplier_Click(object sender, EventArgs e)
+        {
+            new v_supplier().Show();
+            this.Close();
         }
     }
 }

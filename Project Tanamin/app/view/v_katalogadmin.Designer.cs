@@ -38,6 +38,7 @@
             btnTambah = new Button();
             panelflow = new FlowLayoutPanel();
             panel1 = new Panel();
+            supplier = new Button();
             panelflow.SuspendLayout();
             SuspendLayout();
             // 
@@ -134,12 +135,23 @@
             panel1.Size = new Size(296, 463);
             panel1.TabIndex = 0;
             // 
+            // supplier
+            // 
+            supplier.BackgroundImage = (Image)resources.GetObject("supplier.BackgroundImage");
+            supplier.Location = new Point(1378, 45);
+            supplier.Name = "supplier";
+            supplier.Size = new Size(208, 64);
+            supplier.TabIndex = 8;
+            supplier.UseVisualStyleBackColor = true;
+            supplier.Click += supplier_Click;
+            // 
             // v_katalogadmin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(supplier);
             Controls.Add(panelflow);
             Controls.Add(btnTambah);
             Controls.Add(btnlogout);
@@ -166,5 +178,6 @@
         private Button btnTambah;
         private FlowLayoutPanel panelflow;
         private Panel panel1;
+        private Button supplier;
     }
 }

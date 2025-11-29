@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 namespace Project_Tanamin.app.controller
 {
-    //abstract
     public abstract class ProdukBaseController
     {
         protected readonly connectdata db;
@@ -16,7 +15,6 @@ namespace Project_Tanamin.app.controller
             db = new connectdata();
         }
 
-        // Abstraction
         public abstract bool AddProduk(m_produk p);
         public abstract bool UpdateProduk(m_produk p);
         public abstract bool HapusProduk(int id);
@@ -24,25 +22,43 @@ namespace Project_Tanamin.app.controller
         public virtual List<m_produk> GetProdukList()
         {
             var list = new List<m_produk>();
+
             try
             {
                 using var conn = new NpgsqlConnection(db.connstring);
                 conn.Open();
-                string query = "SELECT * FROM produk";
+
+                string query = @"
+                    SELECT 
+                        p.id_produk,
+                        p.foto_produk,
+                        p.nama_produk,
+                        p.stok_produk,
+                        p.deskripsi,
+                        p.harga_satuan,
+                        p.is_deleted,
+                        p.id_kategoriproduk,
+                        k.nama_kategori
+                    FROM produk p
+                    LEFT JOIN kategori k ON p.id_kategoriproduk = k.id_kategoriproduk
+                    WHERE p.is_deleted = FALSE";
+
                 using var cmd = new NpgsqlCommand(query, conn);
                 using var reader = cmd.ExecuteReader();
+
                 while (reader.Read())
                 {
                     list.Add(new m_produk
                     {
                         IdProduk = reader.GetInt32(reader.GetOrdinal("id_produk")),
                         FotoProduk = reader["foto_produk"] == DBNull.Value ? null : (byte[])reader["foto_produk"],
-                        NamaKategori = reader["nama_kategori"]?.ToString() ?? "",
                         NamaProduk = reader["nama_produk"]?.ToString() ?? "",
                         StokProduk = reader.GetInt32(reader.GetOrdinal("stok_produk")),
                         Deskripsi = reader["deskripsi"]?.ToString() ?? "",
                         HargaSatuan = reader.GetInt32(reader.GetOrdinal("harga_satuan")),
-                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("is_deleted"))
+                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("is_deleted")),
+                        IdKategoriProduk = reader["id_kategoriproduk"] == DBNull.Value ? null : (int?)reader.GetInt32(reader.GetOrdinal("id_kategoriproduk")),
+                        NamaKategori = reader["nama_kategori"]?.ToString() ?? ""
                     });
                 }
             }
@@ -50,11 +66,11 @@ namespace Project_Tanamin.app.controller
             {
                 Console.WriteLine("Error GetProdukList: " + ex.Message);
             }
+
             return list;
         }
     }
 
-    //polymorphism
     public class c_produk : ProdukBaseController
     {
         public override bool AddProduk(m_produk p)
@@ -63,17 +79,21 @@ namespace Project_Tanamin.app.controller
             {
                 using var conn = new NpgsqlConnection(db.connstring);
                 conn.Open();
+
                 string query = @"
-                    INSERT INTO produk (foto_produk, nama_kategori, nama_produk, stok_produk, deskripsi, harga_satuan, is_deleted)
-                    VALUES (@foto, @kat, @nama, @stok, @desk, @harga, @isdel)";
+                    INSERT INTO produk
+                        (foto_produk, nama_produk, stok_produk, deskripsi, harga_satuan, is_deleted, id_kategoriproduk)
+                    VALUES
+                        (@foto, @nama, @stok, @desk, @harga, FALSE, @kat)";
+
                 using var cmd = new NpgsqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@foto", (object)p.FotoProduk ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@kat", p.NamaKategori ?? "");
                 cmd.Parameters.AddWithValue("@nama", p.NamaProduk ?? "");
                 cmd.Parameters.AddWithValue("@stok", p.StokProduk);
                 cmd.Parameters.AddWithValue("@desk", p.Deskripsi ?? "");
                 cmd.Parameters.AddWithValue("@harga", p.HargaSatuan);
-                cmd.Parameters.AddWithValue("@isdel", p.StokProduk == 0);
+                cmd.Parameters.AddWithValue("@kat", (object)p.IdKategoriProduk ?? DBNull.Value);
+
                 return cmd.ExecuteNonQuery() > 0;
             }
             catch (Exception ex)
@@ -89,20 +109,26 @@ namespace Project_Tanamin.app.controller
             {
                 using var conn = new NpgsqlConnection(db.connstring);
                 conn.Open();
+
                 string query = @"
-                    UPDATE produk 
-                    SET foto_produk=@foto, nama_produk=@nama, nama_kategori=@kat, stok_produk=@stok, 
-                        deskripsi=@desk, harga_satuan=@harga, is_deleted=@isdel
-                    WHERE id_produk=@id";
+                    UPDATE produk SET
+                        foto_produk = @foto,
+                        nama_produk = @nama,
+                        stok_produk = @stok,
+                        deskripsi = @desk,
+                        harga_satuan = @harga,
+                        id_kategoriproduk = @kat
+                    WHERE id_produk = @id";
+
                 using var cmd = new NpgsqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@foto", (object)p.FotoProduk ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@nama", p.NamaProduk ?? "");
-                cmd.Parameters.AddWithValue("@kat", p.NamaKategori ?? "");
                 cmd.Parameters.AddWithValue("@stok", p.StokProduk);
                 cmd.Parameters.AddWithValue("@desk", p.Deskripsi ?? "");
                 cmd.Parameters.AddWithValue("@harga", p.HargaSatuan);
-                cmd.Parameters.AddWithValue("@isdel", p.StokProduk == 0);
+                cmd.Parameters.AddWithValue("@kat", (object)p.IdKategoriProduk ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@id", p.IdProduk);
+
                 return cmd.ExecuteNonQuery() > 0;
             }
             catch (Exception ex)
@@ -118,9 +144,11 @@ namespace Project_Tanamin.app.controller
             {
                 using var conn = new NpgsqlConnection(db.connstring);
                 conn.Open();
-                string query = "UPDATE produk SET stok_produk=0, is_deleted=true WHERE id_produk=@id";
+
+                string query = "UPDATE produk SET is_deleted = TRUE WHERE id_produk = @id";
                 using var cmd = new NpgsqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
+
                 return cmd.ExecuteNonQuery() > 0;
             }
             catch (Exception ex)
@@ -128,6 +156,48 @@ namespace Project_Tanamin.app.controller
                 Console.WriteLine("Error HapusProduk: " + ex.Message);
                 return false;
             }
+        }
+
+        public void UpdateStok(int idProduk, int stokBaru)
+        {
+            using var conn = db.getConn();
+            conn.Open();
+            string query = "UPDATE produk SET stok_produk = @stok WHERE id_produk = @id";
+            using var cmd = new NpgsqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@stok", stokBaru);
+            cmd.Parameters.AddWithValue("@id", idProduk);
+            cmd.ExecuteNonQuery();
+        }
+
+        // ======================================================
+        // GET KATEGORI MAP (nama -> id) untuk ComboBox
+        // ======================================================
+        public Dictionary<string, int> GetKategoriMap()
+        {
+            var map = new Dictionary<string, int>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(db.connstring);
+                conn.Open();
+
+                string query = "SELECT id_kategoriproduk, nama_kategori FROM kategori ORDER BY id_kategoriproduk";
+                using var cmd = new NpgsqlCommand(query, conn);
+                using var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(reader.GetOrdinal("id_kategoriproduk"));
+                    string nama = reader["nama_kategori"]?.ToString() ?? "";
+                    map[nama] = id;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error GetKategoriMap: " + ex.Message);
+            }
+
+            return map;
         }
     }
 }

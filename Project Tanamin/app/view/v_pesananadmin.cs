@@ -25,7 +25,7 @@ namespace Project_Tanamin.app.view
             var list = ctrl.GetSemuaPesananAdmin();
 
             DataTable dt = new DataTable();
-            dt.Columns.Add("ID", typeof(int)); 
+            dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Tanggal");
             dt.Columns.Add("Customer");
             dt.Columns.Add("Produk");
@@ -38,7 +38,7 @@ namespace Project_Tanamin.app.view
 
             foreach (var item in list)
             {
-                int subtotal = item.detail.jumlah_transaksi * item.detail.harga_satuan;
+                int subtotal = item.detail.jumlah_transaksi * item.detail.HargaSatuan;
 
                 dt.Rows.Add(
                     item.transaksi.id_transaksi,
@@ -48,8 +48,8 @@ namespace Project_Tanamin.app.view
                     item.detail.jumlah_transaksi,
                     item.transaksi.status_transaksi,
                     item.transaksi.pembayaran,
-                    item.transaksi.detail_alamat,
-                    item.detail.harga_satuan,
+                    item.transaksi.alamat,
+                    item.detail.HargaSatuan,
                     subtotal
                 );
             }
@@ -70,6 +70,11 @@ namespace Project_Tanamin.app.view
             dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(220, 248, 198);
             dataGridView1.RowHeadersVisible = false;
+
+            dataGridView1.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
+            dataGridView1.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
 
             if (dataGridView1.Columns.Contains("Status"))
                 dataGridView1.Columns.Remove("Status");

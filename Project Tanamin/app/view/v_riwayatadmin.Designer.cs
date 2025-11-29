@@ -35,6 +35,8 @@
             btnriwayatadmin = new Button();
             btnpesananadmin = new Button();
             btnkatalogadmin = new Button();
+            dataGridView1 = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // btnlogout
@@ -103,12 +105,24 @@
             btnkatalogadmin.UseVisualStyleBackColor = true;
             btnkatalogadmin.Click += btnkatalogadmin_Click;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.BackgroundColor = SystemColors.Window;
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(415, 198);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 62;
+            dataGridView1.Size = new Size(1463, 829);
+            dataGridView1.TabIndex = 31;
+            // 
             // v_riwayatadmin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(dataGridView1);
             Controls.Add(btnlogout);
             Controls.Add(btnprofiladmin);
             Controls.Add(btnfeedbackadmin);
@@ -117,6 +131,7 @@
             Controls.Add(btnkatalogadmin);
             Name = "v_riwayatadmin";
             Text = "v_riwayatadmin";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -128,5 +143,6 @@
         private Button btnriwayatadmin;
         private Button btnpesananadmin;
         private Button btnkatalogadmin;
+        private DataGridView dataGridView1;
     }
 }

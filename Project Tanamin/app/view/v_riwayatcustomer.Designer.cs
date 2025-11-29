@@ -35,6 +35,8 @@
             btnriwayatcustomer = new Button();
             btnpesanancustomer = new Button();
             btnkatalaogcustomer = new Button();
+            dataGridView1 = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // btnlogout
@@ -103,12 +105,24 @@
             btnkatalaogcustomer.UseVisualStyleBackColor = true;
             btnkatalaogcustomer.Click += btnkatalaogcustomer_Click;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.BackgroundColor = SystemColors.Window;
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(419, 196);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 62;
+            dataGridView1.Size = new Size(1472, 817);
+            dataGridView1.TabIndex = 30;
+            // 
             // v_riwayatcustomer
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(dataGridView1);
             Controls.Add(btnlogout);
             Controls.Add(btnprofilcustomer);
             Controls.Add(btnfeedbackcustomer);
@@ -117,6 +131,7 @@
             Controls.Add(btnkatalaogcustomer);
             Name = "v_riwayatcustomer";
             Text = "v_riwayatcustomer";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -128,5 +143,6 @@
         private Button btnriwayatcustomer;
         private Button btnpesanancustomer;
         private Button btnkatalaogcustomer;
+        private DataGridView dataGridView1;
     }
 }

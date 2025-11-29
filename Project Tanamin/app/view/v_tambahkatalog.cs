@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Project_Tanamin.app.view
 {
@@ -14,27 +15,38 @@ namespace Project_Tanamin.app.view
         private m_produk editProduk;
         private byte[]? fotoByte = null;
 
+        private Dictionary<string, int> kategoriMap = new Dictionary<string, int>();
+
         public v_tambahkatalog(v_katalogadmin parent, m_produk? produk = null)
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+
             parentForm = parent;
             ctrlProduk = new c_produk();
             editProduk = produk;
 
-            comboBoxjenisproduk.Items.Clear();
-            comboBoxjenisproduk.Items.Add("Obat Tanaman");
-            comboBoxjenisproduk.Items.Add("Pupuk");
+            LoadKategoriComboBox();
 
             btnpicture.Text = "";
             btnpicture.SizeMode = PictureBoxSizeMode.Zoom;
             btnpicture.BorderStyle = BorderStyle.FixedSingle;
 
+            // Atur stok
             if (editProduk != null)
             {
                 nama_produk.Text = editProduk.NamaProduk;
                 comboBoxjenisproduk.SelectedItem = editProduk.NamaKategori;
                 stok.Text = editProduk.StokProduk.ToString();
+            }
+            else
+            {
+                stok.Text = "0";
+            }
+            stok.ReadOnly = true; // stok tidak bisa diedit
+
+            if (editProduk != null)
+            {
                 harga.Text = editProduk.HargaSatuan.ToString();
                 deskripsi.Text = editProduk.Deskripsi;
 
@@ -52,6 +64,27 @@ namespace Project_Tanamin.app.view
                         fotoByte = null;
                     }
                 }
+            }
+        }
+
+        private void LoadKategoriComboBox()
+        {
+            comboBoxjenisproduk.Items.Clear();
+            kategoriMap.Clear();
+
+            try
+            {
+                kategoriMap = ctrlProduk.GetKategoriMap();
+                foreach (var nama in kategoriMap.Keys)
+                {
+                    comboBoxjenisproduk.Items.Add(nama);
+                }
+                if (comboBoxjenisproduk.Items.Count > 0)
+                    comboBoxjenisproduk.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load kategori: " + ex.Message);
             }
         }
 
@@ -88,12 +121,6 @@ namespace Project_Tanamin.app.view
                 return;
             }
 
-            if (!int.TryParse(stok.Text, out int stokValue) || stokValue < 0)
-            {
-                MessageBox.Show("Stok harus berupa angka bulat >= 0");
-                return;
-            }
-
             if (!int.TryParse(harga.Text, out int hargaValue) || hargaValue < 0)
             {
                 MessageBox.Show("Harga harus berupa angka bulat >= 0");
@@ -102,62 +129,71 @@ namespace Project_Tanamin.app.view
 
             var produk = editProduk ?? new m_produk();
             produk.NamaProduk = nama_produk.Text;
-            produk.NamaKategori = comboBoxjenisproduk.SelectedItem.ToString();
-            produk.StokProduk = stokValue;
+            produk.StokProduk = editProduk != null ? editProduk.StokProduk : 0; // tetap stok lama / default 0
             produk.HargaSatuan = hargaValue;
             produk.Deskripsi = deskripsi.Text;
             produk.FotoProduk = fotoByte;
 
-            bool success = editProduk == null ? ctrlProduk.AddProduk(produk) : ctrlProduk.UpdateProduk(produk);
-
-            if (success)
+            string kategoriTerpilih = comboBoxjenisproduk.SelectedItem.ToString();
+            if (kategoriMap.ContainsKey(kategoriTerpilih))
             {
-                MessageBox.Show("Data berhasil disimpan");
-                parentForm.LoadKatalog();
-                this.Close();
-                parentForm.Show();
+                produk.IdKategoriProduk = kategoriMap[kategoriTerpilih];
+                produk.NamaKategori = kategoriTerpilih;
             }
             else
             {
-                MessageBox.Show("Gagal menyimpan data");
+                MessageBox.Show("Kategori tidak valid!");
+                return;
+            }
+
+            try
+            {
+                bool success = editProduk == null ? ctrlProduk.AddProduk(produk) : ctrlProduk.UpdateProduk(produk);
+                if (success)
+                {
+                    MessageBox.Show("Data berhasil disimpan");
+                    parentForm.LoadKatalog();
+                    this.Close();
+                    parentForm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Gagal menyimpan data");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saat menyimpan: " + ex.Message);
             }
         }
 
         private void btnbatal_Click(object sender, EventArgs e)
         {
-            new v_katalogadmin().Show();
+            parentForm.Show();
             this.Close();
         }
 
-        private void btnkatalogadmin_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        private void btnkatalogadmin_Click(object sender, EventArgs e) { }
         private void btnpesananadmin_Click(object sender, EventArgs e)
         {
             new v_pesananadmin().Show();
             this.Close();
         }
-
         private void btnriwayatadmin_Click(object sender, EventArgs e)
         {
             new v_riwayatadmin().Show();
             this.Close();
         }
-
         private void btnfeedbackadmin_Click(object sender, EventArgs e)
         {
             new v_feedbackadmin().Show();
             this.Close();
         }
-
         private void btnprofiladmin_Click(object sender, EventArgs e)
         {
             new v_profiladmin().Show();
             this.Close();
         }
-
         private void btnlogout_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Apakah Anda yakin ingin keluar?",

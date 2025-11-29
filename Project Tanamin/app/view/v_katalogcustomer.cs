@@ -368,10 +368,21 @@ namespace Project_Tanamin.app.view
                 return;
             }
 
-            v_pembayaran bayar = new v_pembayaran(keranjang);
-            bayar.Show();
-            this.Close();
+            var result = MessageBox.Show(
+                "Apakah Anda yakin ingin melakukan pembayaran?",
+                "Konfirmasi Pembayaran",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                v_pembayaran bayar = new v_pembayaran(keranjang);
+                bayar.Show();
+                this.Close();
+            }
         }
+
 
         private void btnkatalaogcustomer_Click(object sender, EventArgs e)
         {
