@@ -36,6 +36,7 @@
             btnriwayatcustomer = new Button();
             btnpesanancustomer = new Button();
             btnkatalaogcustomer = new Button();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -116,12 +117,22 @@
             btnkatalaogcustomer.UseVisualStyleBackColor = true;
             btnkatalaogcustomer.Click += btnkatalaogcustomer_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(45, 32);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(292, 94);
+            panel1.TabIndex = 30;
+            // 
             // v_pesanancustomer
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel1);
             Controls.Add(btnlogout);
             Controls.Add(btnprofilcustomer);
             Controls.Add(btnfeedbackcustomer);
@@ -144,5 +155,6 @@
         private Button btnriwayatcustomer;
         private Button btnpesanancustomer;
         private Button btnkatalaogcustomer;
+        private Panel panel1;
     }
 }

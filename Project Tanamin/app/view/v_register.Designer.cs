@@ -36,6 +36,7 @@
             no_telp = new TextBox();
             password_register = new TextBox();
             konfirmasi_password = new TextBox();
+            panel1 = new Panel();
             SuspendLayout();
             // 
             // linklogin
@@ -100,12 +101,22 @@
             konfirmasi_password.Size = new Size(478, 24);
             konfirmasi_password.TabIndex = 7;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(176, 141);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(835, 801);
+            panel1.TabIndex = 8;
+            // 
             // v_register
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel1);
             Controls.Add(konfirmasi_password);
             Controls.Add(password_register);
             Controls.Add(no_telp);
@@ -127,5 +138,6 @@
         private TextBox no_telp;
         private TextBox password_register;
         private TextBox konfirmasi_password;
+        private Panel panel1;
     }
 }

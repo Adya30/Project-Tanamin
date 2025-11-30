@@ -180,7 +180,7 @@ namespace Project_Tanamin.app.controller
                 INNER JOIN produk p ON d.id_produk = p.id_produk
                 INNER JOIN kategori k ON p.id_kategoriproduk = k.id_kategoriproduk
                 INNER JOIN users u ON t.id_user = u.id_user
-                ORDER BY t.tanggal_transaksi DESC;
+                ORDER BY u.nama_lengkap ASC, t.tanggal_transaksi DESC;
                 ";
 
                 using (var cmd = new NpgsqlCommand(query, conn))

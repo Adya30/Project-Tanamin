@@ -21,13 +21,14 @@ namespace Project_Tanamin.app.view
         public v_pembayaransupplier(int? idUser, List<(m_produk, int)> dataKeranjang, int totalItem)
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+
             userId = idUser;
             keranjang = dataKeranjang;
             ctrlProduk = new c_produk();
 
             dateTimePicker1.Value = DateTime.Now;
-            dateTimePicker1.Enabled = false; 
-
+            dateTimePicker1.Enabled = false;
         }
 
         private void btnbayar_Click(object sender, EventArgs e)
@@ -35,48 +36,68 @@ namespace Project_Tanamin.app.view
             string namaSupplier = namaspllier.Text.Trim();
             string nominalText = nominalpem.Text.Trim();
 
+
             if (string.IsNullOrWhiteSpace(namaSupplier))
             {
                 MessageBox.Show("Nama supplier harus diisi!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (!int.TryParse(nominalText, out int nominal) || nominal <= 0)
+            if (!decimal.TryParse(nominalText, out decimal nominal) || nominal <= 0)
             {
-                MessageBox.Show("Nominal harga harus berupa angka lebih dari 0!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nominal harus berupa angka lebih besar dari 0!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             var ctrl = new c_PembayaranSupplier();
-            bool sukses = ctrl.ProsesPembayaranSupplier(userId, keranjang, namaSupplier);
 
-            if (!sukses)
+            int idPembelian = ctrl.ProsesPembayaranSupplier(
+                namaSupplier,
+                nominal,
+                keranjang
+            );
+
+            if (idPembelian <= 0)
             {
-                MessageBox.Show("Gagal memproses stok supplier!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Gagal menyimpan data pembelian!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MessageBox.Show("Stok berhasil ditambahkan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (idPembelian == -1)
+            {
+                MessageBox.Show(
+                    "Nominal terlalu besar! Maksimal adalah 2.147.483.647.\nSilakan perbaiki input nominal.",
+                    "Kesalahan Nominal",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return; 
+            }
 
-            new v_supplier().Show();
+            MessageBox.Show(
+                $"Pembelian berhasil diproses!",
+                "Sukses",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+
+            new v_supplier(userId).Show();
             this.Close();
         }
-
         private void btnbatal_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show(
                 "Apakah Anda yakin ingin membatalkan pembayaran?",
-                "Konfirmasi Batal",
+                "Konfirmasi",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
 
             if (result == DialogResult.Yes)
             {
-                new v_supplier().Show();
+                new v_supplier(userId).Show();
                 this.Close();
             }
         }
-
     }
 }

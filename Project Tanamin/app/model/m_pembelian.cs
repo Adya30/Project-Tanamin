@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project_Tanamin.app.model
 {
-    internal class m_pembelian
+    public class m_pembelian
     {
+        public int IdPembelian { get; set; }
+        public DateTime TanggalPembelian { get; set; }
+        public string NamaSupplier { get; set; }
+        public int PembayaranSupplier { get; set; }
+
     }
 }

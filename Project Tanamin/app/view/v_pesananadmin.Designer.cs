@@ -36,6 +36,7 @@
             btnpesananadmin = new Button();
             btnkatalaogadmin = new Button();
             dataGridView1 = new DataGridView();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -115,12 +116,22 @@
             dataGridView1.Size = new Size(1463, 829);
             dataGridView1.TabIndex = 30;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(37, 33);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(292, 94);
+            panel1.TabIndex = 31;
+            // 
             // v_pesananadmin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel1);
             Controls.Add(dataGridView1);
             Controls.Add(btnlogout);
             Controls.Add(btnprofiladmin);
@@ -143,5 +154,6 @@
         private Button btnpesananadmin;
         private Button btnkatalaogadmin;
         private DataGridView dataGridView1;
+        private Panel panel1;
     }
 }

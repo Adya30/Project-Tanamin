@@ -32,7 +32,6 @@ namespace Project_Tanamin.app.view
             btnpicture.SizeMode = PictureBoxSizeMode.Zoom;
             btnpicture.BorderStyle = BorderStyle.FixedSingle;
 
-            // Atur stok
             if (editProduk != null)
             {
                 nama_produk.Text = editProduk.NamaProduk;
@@ -43,7 +42,7 @@ namespace Project_Tanamin.app.view
             {
                 stok.Text = "0";
             }
-            stok.ReadOnly = true; // stok tidak bisa diedit
+            stok.ReadOnly = true; 
 
             if (editProduk != null)
             {

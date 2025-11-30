@@ -39,6 +39,7 @@
             btnkatalaogcustomer = new Button();
             btnbayar = new Button();
             panelRingkasan = new Panel();
+            panel2 = new Panel();
             panelflow.SuspendLayout();
             SuspendLayout();
             // 
@@ -144,12 +145,22 @@
             panelRingkasan.Size = new Size(581, 803);
             panelRingkasan.TabIndex = 1;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Transparent;
+            panel2.BackgroundImage = (Image)resources.GetObject("panel2.BackgroundImage");
+            panel2.Location = new Point(42, 35);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(292, 94);
+            panel2.TabIndex = 25;
+            // 
             // v_katalogcustomer
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel2);
             Controls.Add(btnbayar);
             Controls.Add(panelRingkasan);
             Controls.Add(btnlogout);
@@ -177,5 +188,6 @@
         private Button btnkatalaogcustomer;
         private Button btnbayar;
         private Panel panelRingkasan;
+        private Panel panel2;
     }
 }

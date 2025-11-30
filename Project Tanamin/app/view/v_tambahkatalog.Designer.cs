@@ -43,6 +43,7 @@
             btnriwayatadmin = new Button();
             btnpesananadmin = new Button();
             btnkatalogadmin = new Button();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)btnpicture).BeginInit();
             SuspendLayout();
             // 
@@ -191,12 +192,22 @@
             btnkatalogadmin.UseVisualStyleBackColor = true;
             btnkatalogadmin.Click += btnkatalogadmin_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(43, 33);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(292, 94);
+            panel1.TabIndex = 32;
+            // 
             // v_tambahkatalog
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel1);
             Controls.Add(btnlogout);
             Controls.Add(btnprofiladmin);
             Controls.Add(btnfeedbackadmin);
@@ -234,5 +245,6 @@
         private Button btnriwayatadmin;
         private Button btnpesananadmin;
         private Button btnkatalogadmin;
+        private Panel panel1;
     }
 }

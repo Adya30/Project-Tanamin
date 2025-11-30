@@ -36,6 +36,9 @@
             btnpesananadmin = new Button();
             btnkatalogadmin = new Button();
             dataGridView1 = new DataGridView();
+            panel1 = new Panel();
+            btnsupplier = new Button();
+            btncustomer = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -116,12 +119,44 @@
             dataGridView1.Size = new Size(1463, 829);
             dataGridView1.TabIndex = 31;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(44, 34);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(292, 94);
+            panel1.TabIndex = 32;
+            // 
+            // btnsupplier
+            // 
+            btnsupplier.BackgroundImage = (Image)resources.GetObject("btnsupplier.BackgroundImage");
+            btnsupplier.Location = new Point(1670, 34);
+            btnsupplier.Name = "btnsupplier";
+            btnsupplier.Size = new Size(208, 64);
+            btnsupplier.TabIndex = 33;
+            btnsupplier.UseVisualStyleBackColor = true;
+            btnsupplier.Click += btnsupplier_Click;
+            // 
+            // btncustomer
+            // 
+            btncustomer.BackgroundImage = (Image)resources.GetObject("btncustomer.BackgroundImage");
+            btncustomer.Location = new Point(1420, 34);
+            btncustomer.Name = "btncustomer";
+            btncustomer.Size = new Size(208, 64);
+            btncustomer.TabIndex = 34;
+            btncustomer.UseVisualStyleBackColor = true;
+            btncustomer.Click += btncustomer_Click;
+            // 
             // v_riwayatadmin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(btncustomer);
+            Controls.Add(btnsupplier);
+            Controls.Add(panel1);
             Controls.Add(dataGridView1);
             Controls.Add(btnlogout);
             Controls.Add(btnprofiladmin);
@@ -144,5 +179,8 @@
         private Button btnpesananadmin;
         private Button btnkatalogadmin;
         private DataGridView dataGridView1;
+        private Panel panel1;
+        private Button btnsupplier;
+        private Button btncustomer;
     }
 }

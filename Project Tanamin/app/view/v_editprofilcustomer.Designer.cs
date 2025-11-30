@@ -42,6 +42,7 @@
             no_telp = new TextBox();
             Password = new TextBox();
             konfirmasipassword = new TextBox();
+            panel1 = new Panel();
             SuspendLayout();
             // 
             // btnlogout
@@ -177,12 +178,22 @@
             konfirmasipassword.Size = new Size(474, 24);
             konfirmasipassword.TabIndex = 23;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(40, 37);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(296, 103);
+            panel1.TabIndex = 24;
+            // 
             // v_editprofilcustomer
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel1);
             Controls.Add(konfirmasipassword);
             Controls.Add(Password);
             Controls.Add(no_telp);
@@ -217,5 +228,6 @@
         private TextBox no_telp;
         private TextBox Password;
         private TextBox konfirmasipassword;
+        private Panel panel1;
     }
 }

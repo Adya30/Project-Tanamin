@@ -40,6 +40,7 @@
             richTextBox2 = new RichTextBox();
             btnsimpan = new Button();
             btnbatal = new Button();
+            panel1 = new Panel();
             SuspendLayout();
             // 
             // btnlogout
@@ -159,12 +160,22 @@
             btnbatal.TabIndex = 25;
             btnbatal.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(40, 46);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(292, 94);
+            panel1.TabIndex = 32;
+            // 
             // v_responfeedback
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel1);
             Controls.Add(btnbatal);
             Controls.Add(btnsimpan);
             Controls.Add(richTextBox2);
@@ -194,5 +205,6 @@
         private RichTextBox richTextBox2;
         private Button btnsimpan;
         private Button btnbatal;
+        private Panel panel1;
     }
 }

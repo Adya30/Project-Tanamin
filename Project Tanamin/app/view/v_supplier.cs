@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
 {
-    public partial class v_supplier : Form
+    public partial class v_supplier : Form  
     {
         private readonly c_produk ctrlProduk;
         private int? userId;
@@ -43,9 +43,6 @@ namespace Project_Tanamin.app.view
             }
         }
 
-        // =========================================================
-        // CREATE CARD PRODUK
-        // =========================================================
         private Panel CreateCard(m_produk produk)
         {
             Panel card = new Panel

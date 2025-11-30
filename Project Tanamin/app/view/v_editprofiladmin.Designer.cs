@@ -40,6 +40,7 @@
             konfirmasipassword = new TextBox();
             btnsimpan = new Button();
             btnbatal = new Button();
+            panel1 = new Panel();
             SuspendLayout();
             // 
             // btnlogout
@@ -160,12 +161,22 @@
             btnbatal.UseVisualStyleBackColor = true;
             btnbatal.Click += btnbatal_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(43, 32);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(292, 94);
+            panel1.TabIndex = 17;
+            // 
             // v_editprofiladmin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel1);
             Controls.Add(btnbatal);
             Controls.Add(btnsimpan);
             Controls.Add(konfirmasipassword);
@@ -196,5 +207,6 @@
         private TextBox konfirmasipassword;
         private Button btnsimpan;
         private Button btnbatal;
+        private Panel panel1;
     }
 }

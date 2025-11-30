@@ -1,6 +1,4 @@
-﻿using Project_Tanamin.app.dbconnect;
-using Project_Tanamin.app.model;
-using Npgsql;
+﻿using Project_Tanamin.app.model;
 using System;
 using System.Collections.Generic;
 
@@ -8,42 +6,21 @@ namespace Project_Tanamin.app.controller
 {
     public class c_PembayaranSupplier
     {
-        private readonly connectdata db;
+        private readonly c_supplier csupp;
 
         public c_PembayaranSupplier()
         {
-            db = new connectdata();
+            csupp = new c_supplier();
         }
 
-        public bool ProsesPembayaranSupplier(int? userId, List<(m_produk produk, int jumlah)> keranjang, string supplierName)
+        public int ProsesPembayaranSupplier(
+            string supplierName,
+            decimal nominal,
+            List<(m_produk produk, int jumlah)> keranjang)
         {
-            try
-            {
-                using var conn = new NpgsqlConnection(db.connstring);
-                conn.Open();
-                using var tran = conn.BeginTransaction();
+            DateTime now = DateTime.Now;
 
-                // Tambah stok produk sesuai keranjang
-                foreach (var item in keranjang)
-                {
-                    string query = @"
-                        UPDATE produk
-                        SET stok_produk = stok_produk + @jumlah
-                        WHERE id_produk = @id_produk";
-                    using var cmd = new NpgsqlCommand(query, conn, tran);
-                    cmd.Parameters.AddWithValue("@jumlah", item.jumlah);
-                    cmd.Parameters.AddWithValue("@id_produk", item.produk.IdProduk);
-                    cmd.ExecuteNonQuery();
-                }
-
-                tran.Commit();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Gagal proses pembayaran supplier: " + ex.Message);
-                return false;
-            }
+            return csupp.InsertPembelian(now, supplierName, nominal, keranjang);
         }
     }
 }

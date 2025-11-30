@@ -34,6 +34,7 @@
             linkLabel1 = new LinkLabel();
             linkdaftar = new LinkLabel();
             btnlogin = new Button();
+            panel1 = new Panel();
             SuspendLayout();
             // 
             // login_username
@@ -95,12 +96,22 @@
             btnlogin.UseVisualStyleBackColor = true;
             btnlogin.Click += btnlogin_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Location = new Point(174, 127);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(835, 801);
+            panel1.TabIndex = 5;
+            // 
             // v_login
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1924, 1050);
+            Controls.Add(panel1);
             Controls.Add(btnlogin);
             Controls.Add(linkdaftar);
             Controls.Add(linkLabel1);
@@ -119,5 +130,6 @@
         private LinkLabel linkLabel1;
         private LinkLabel linkdaftar;
         private Button btnlogin;
+        private Panel panel1;
     }
 }

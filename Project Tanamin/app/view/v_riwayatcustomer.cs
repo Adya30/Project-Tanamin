@@ -104,7 +104,7 @@ namespace Project_Tanamin.app.view
 
         private void btnriwayatcustomer_Click(object sender, EventArgs e)
         {
-            // sudah di halaman ini
+
         }
 
         private void btnfeedbackcustomer_Click(object sender, EventArgs e)

@@ -263,15 +263,6 @@ namespace Project_Tanamin.app.view
                 btnPlus.Click += (s, e) => { TambahQty(item.produk); };
                 row.Controls.Add(btnPlus);
 
-                Label lblSubtotal = new Label
-                {
-                    Text = $"Rp {subtotal}",
-                    Left = 350,
-                    Top = 8,
-                    Width = 100
-                };
-                row.Controls.Add(lblSubtotal);
-
                 panelItems.Controls.Add(row);
 
                 top += 40;

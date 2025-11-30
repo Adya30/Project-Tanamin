@@ -6,51 +6,39 @@ using System.Windows.Forms;
 
 namespace Project_Tanamin.app.view
 {
-    public partial class v_riwayatadmin : Form
+    public partial class v_riwayatsupplier : Form
     {
-        private readonly c_pesanan ctrl;
+        private readonly c_supplier ctrl;
 
-        public v_riwayatadmin()
+        public v_riwayatsupplier()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            ctrl = new c_pesanan();
-            LoadRiwayat();
+            ctrl = new c_supplier();
+            LoadRiwayatSupplier();
         }
 
-        private void LoadRiwayat()
+        private void LoadRiwayatSupplier()
         {
-            var list = ctrl.GetSemuaPesananAdmin();
+            var list = ctrl.GetRiwayatPembelian();
+
             DataTable dt = new DataTable();
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Tanggal");
-            dt.Columns.Add("Customer");
+            dt.Columns.Add("Nama Supplier");
             dt.Columns.Add("Produk");
-            dt.Columns.Add("Jumlah");
-            dt.Columns.Add("Pembayaran");
-            dt.Columns.Add("Alamat");
-            dt.Columns.Add("Harga Satuan");
-            dt.Columns.Add("Subtotal");
-            dt.Columns.Add("Status");
+            dt.Columns.Add("Jumlah Beli");
+            dt.Columns.Add("Nominal Pembayaran");
 
             foreach (var item in list)
             {
-                if (item.transaksi.status_transaksi != "Selesai")
-                    continue;
-
-                int subtotal = item.detail.jumlah_transaksi * item.detail.HargaSatuan;
-
                 dt.Rows.Add(
-                    item.transaksi.id_transaksi,
-                    item.transaksi.tanggal_transaksi.ToString("dd/MM/yyyy"),
-                    item.user.NamaLengkap,
+                    item.pembelian.IdPembelian,
+                    item.pembelian.TanggalPembelian.ToString("dd/MM/yyyy"),
+                    item.pembelian.NamaSupplier,
                     item.produk.NamaProduk,
-                    item.detail.jumlah_transaksi,
-                    item.transaksi.pembayaran,
-                    item.transaksi.alamat,
-                    item.detail.HargaSatuan,
-                    subtotal,
-                    item.transaksi.status_transaksi
+                    item.detail.JumlahPembelian,
+                    item.pembelian.PembayaranSupplier
                 );
             }
 
@@ -75,13 +63,7 @@ namespace Project_Tanamin.app.view
             dataGridView1.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
             dataGridView1.ClearSelection();
             dataGridView1.CurrentCell = null;
-
-            if (dataGridView1.Columns.Contains("Status"))
-                dataGridView1.Columns["Status"].DisplayIndex = dataGridView1.Columns.Count - 1;
-
-            dataGridView1.Columns["Status"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
-
 
         private void btnkatalogadmin_Click(object sender, EventArgs e)
         {
@@ -97,7 +79,8 @@ namespace Project_Tanamin.app.view
 
         private void btnriwayatadmin_Click(object sender, EventArgs e)
         {
-
+            new v_riwayatadmin().Show();
+            this.Close();
         }
 
         private void btnfeedbackadmin_Click(object sender, EventArgs e)
@@ -126,13 +109,13 @@ namespace Project_Tanamin.app.view
 
         private void btncustomer_Click(object sender, EventArgs e)
         {
-           
+            new v_riwayatadmin().Show();
+            this.Close();
         }
 
         private void btnsupplier_Click(object sender, EventArgs e)
         {
-            new v_riwayatsupplier().Show();
-            this.Close();
+            // tetap di sini
         }
     }
 }
