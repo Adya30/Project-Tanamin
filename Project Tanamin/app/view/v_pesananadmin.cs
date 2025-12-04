@@ -110,7 +110,6 @@ namespace Project_Tanamin.app.view
         {
             if (dataGridView1.Columns.Contains("Status") && dataGridView1.Columns.Contains("Simpan"))
             {
-                // ComboStatus sebelum tombol
                 dataGridView1.Columns["Status"].DisplayIndex = dataGridView1.Columns.Count - 2;
                 dataGridView1.Columns["Simpan"].DisplayIndex = dataGridView1.Columns.Count - 1;
             }

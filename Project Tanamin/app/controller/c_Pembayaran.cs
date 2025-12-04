@@ -16,7 +16,6 @@ namespace Project_Tanamin.app.controller
             string status);
     }
 
-
     public class c_Pembayaran : ITransaksiService   
     {
         private readonly connectdata db;

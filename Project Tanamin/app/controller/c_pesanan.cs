@@ -169,11 +169,8 @@ namespace Project_Tanamin.app.controller
                 SELECT 
                     t.id_transaksi, t.tanggal_transaksi, t.status_transaksi, 
                     t.pembayaran, t.alamat, t.id_user,
-
                     d.id_detailtransaksi, d.jumlah, p.harga_satuan, d.id_produk,
-
                     p.id_produk, p.nama_produk, k.nama_kategori, p.deskripsi,
-
                     u.id_user, u.nama_lengkap
                 FROM transaksi t
                 INNER JOIN detail_transaksi d ON t.id_transaksi = d.id_transaksi

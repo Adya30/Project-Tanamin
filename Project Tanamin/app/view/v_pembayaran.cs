@@ -25,9 +25,6 @@ namespace Project_Tanamin.app.view
             labelkembalian.Text = "-";
         }
 
-        // ===============================
-        // INPUT NOMINAL & KEMBALIAN
-        // ===============================
         private void textBoxnominal_TextChanged(object sender, EventArgs e)
         {
             var txt = textBoxnominal.Text?.Trim();
@@ -55,9 +52,6 @@ namespace Project_Tanamin.app.view
             }
         }
 
-        // ===============================
-        // PILIHAN BANK
-        // ===============================
         private void btnbri_Click(object sender, EventArgs e) => SetBank("BRI");
         private void btnbni_Click(object sender, EventArgs e) => SetBank("BNI");
         private void btnmandiri_Click(object sender, EventArgs e) => SetBank("Mandiri");
@@ -71,9 +65,6 @@ namespace Project_Tanamin.app.view
             MessageBox.Show($"Metode pembayaran: {bank} dipilih");
         }
 
-        // ===============================
-        // BUTTON BAYAR
-        // ===============================
         private void btnbayar_Click(object sender, EventArgs e)
         {
             if (keranjang.Count == 0)
@@ -129,9 +120,6 @@ namespace Project_Tanamin.app.view
         }
 
 
-        // ===============================
-        // BUTTON BATAL
-        // ===============================
         private void btnbatal_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Batalkan pembayaran dan kembali?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)

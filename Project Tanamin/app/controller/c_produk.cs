@@ -169,9 +169,6 @@ namespace Project_Tanamin.app.controller
             cmd.ExecuteNonQuery();
         }
 
-        // ======================================================
-        // GET KATEGORI MAP (nama -> id) untuk ComboBox
-        // ======================================================
         public Dictionary<string, int> GetKategoriMap()
         {
             var map = new Dictionary<string, int>();

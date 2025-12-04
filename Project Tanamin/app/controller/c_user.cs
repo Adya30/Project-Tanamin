@@ -4,13 +4,12 @@ using System;
 
 namespace Project_Tanamin.app.controller
 {
-    // Inheritance + Polymorphism
     public class AdminUser : User { public bool IsAdminUser => true; }
     public class CustomerUser : User { public bool IsAdminUser => false; }
 
     public class c_user
     {
-        private readonly string connString; // Encapsulation
+        private readonly string connString; 
 
         public c_user()
         {
@@ -18,7 +17,7 @@ namespace Project_Tanamin.app.controller
             connString = db.connstring;
         }
 
-        public static User CurrentUser { get; private set; } // Encapsulation
+        public static User CurrentUser { get; private set; }
 
         public string RegisterCustomer(string nama, string username, string telp, string password, string konfirmasi)
         {
@@ -63,7 +62,7 @@ namespace Project_Tanamin.app.controller
                 akun.NamaLengkap = reader["nama_lengkap"]?.ToString();
                 akun.NoTelp = reader["no_telp"]?.ToString();
 
-                CurrentUser = akun; // Encapsulation
+                CurrentUser = akun; 
                 return akun is AdminUser ? "LOGIN_ADMIN" : "LOGIN_CUSTOMER";
             }
 
@@ -99,7 +98,6 @@ namespace Project_Tanamin.app.controller
             if (CurrentUser is CustomerUser) { cmdUpdate.Parameters.AddWithValue("@nama", nama); cmdUpdate.Parameters.AddWithValue("@telp", telp); }
             cmdUpdate.ExecuteNonQuery();
 
-            // Encapsulation
             CurrentUser.Username = username;
             CurrentUser.Password = pass;
             if (CurrentUser is CustomerUser) { CurrentUser.NamaLengkap = nama; CurrentUser.NoTelp = telp; }
@@ -107,6 +105,6 @@ namespace Project_Tanamin.app.controller
             return "Update Profil Berhasil";
         }
 
-        public void Logout() { CurrentUser = null; } // Encapsulation
+        public void Logout() { CurrentUser = null; }
     }
 }

@@ -40,10 +40,10 @@ namespace Project_Tanamin.app.view
             dt.Columns.Add("Jumlah Transaksi");
             dt.Columns.Add("Harga Satuan");
             dt.Columns.Add("Subtotal");
-            dt.Columns.Add("Alamat"); // ganti dari Deskripsi
+            dt.Columns.Add("Alamat"); 
             dt.Columns.Add("Kategori");
             dt.Columns.Add("Pembayaran");
-            dt.Columns.Add("Status Transaksi"); // terakhir agar di pojok kanan
+            dt.Columns.Add("Status Transaksi");
 
             foreach (var item in list)
             {
@@ -55,7 +55,7 @@ namespace Project_Tanamin.app.view
                     item.detail.jumlah_transaksi,
                     item.detail.HargaSatuan,
                     subtotal,
-                    item.transaksi.alamat,   // ganti Deskripsi -> Alamat
+                    item.transaksi.alamat,   
                     item.produk.NamaKategori,
                     item.transaksi.pembayaran,
                     item.transaksi.status_transaksi
@@ -89,8 +89,6 @@ namespace Project_Tanamin.app.view
 
 
         }
-
-
 
         private void btnkatalaogcustomer_Click(object sender, EventArgs e)
         {

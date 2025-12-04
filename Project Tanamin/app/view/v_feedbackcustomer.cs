@@ -54,7 +54,6 @@ namespace Project_Tanamin.app.view
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-
         public void LoadFeedback()
         {
             dataGridView1.Rows.Clear();
@@ -169,7 +168,6 @@ namespace Project_Tanamin.app.view
             this.Hide();
         }
 
-        // UI Modern
         private void ApplyModernStyle()
         {
             dataGridView1.BorderStyle = BorderStyle.None;

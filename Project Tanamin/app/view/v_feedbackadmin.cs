@@ -52,7 +52,7 @@ namespace Project_Tanamin.app.view
         {
             dataGridView1.Rows.Clear();
 
-            feedbackList = ctrl.GetAllFeedback(); // Ambil semua feedback
+            feedbackList = ctrl.GetAllFeedback(); 
 
             foreach (var fb in feedbackList)
             {
@@ -66,7 +66,7 @@ namespace Project_Tanamin.app.view
 
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex != 3) return; // Hanya tombol Respon
+            if (e.RowIndex < 0 || e.ColumnIndex != 3) return; 
 
             Feedback fb = feedbackList[e.RowIndex];
 
@@ -76,14 +76,12 @@ namespace Project_Tanamin.app.view
                 return;
             }
 
-            // Buka form respon admin
             var formRespon = new v_responfeedback();
             formRespon.LoadFeedbackForResponse(fb.id_feedback, fb.tanggal_feedback.ToString("yyyy-MM-dd"), fb.pertanyaan);
-            formRespon.FormClosed += (s, ev) => LoadFeedback(); // Refresh setelah form respon ditutup
+            formRespon.FormClosed += (s, ev) => LoadFeedback(); 
             formRespon.ShowDialog();
         }
 
-        // ================= NAVIGASI =================
         private void btnkatalogadmin_Click(object sender, EventArgs e)
         {
             new v_katalogadmin().Show();
@@ -120,7 +118,6 @@ namespace Project_Tanamin.app.view
             }
         }
 
-        // ================= STYLE MODERN =================
         private void ApplyModernStyle()
         {
             dataGridView1.BorderStyle = BorderStyle.None;

@@ -76,7 +76,6 @@ namespace Project_Tanamin.app.view
             }
         }
 
-
         private void btnsimpan_Click(object sender, EventArgs e)
         {
             string user = username.Text.Trim();

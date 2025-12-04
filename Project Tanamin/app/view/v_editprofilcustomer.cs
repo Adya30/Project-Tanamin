@@ -69,7 +69,6 @@ namespace Project_Tanamin.app.view
                 this.Close();
             }
         }
-
         private void btnsimpan_Click(object sender, EventArgs e)
         {
             string nama = Namalengkap.Text.Trim();

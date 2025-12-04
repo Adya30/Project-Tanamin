@@ -13,6 +13,7 @@ namespace Project_Tanamin.app.model
         public string status_transaksi { get; set; }
         public string pembayaran { get; set; }
         public string alamat { get; set; }
+        public int total_transaksi { get; set; }
         public int? id_user { get; set; }
     }
 
