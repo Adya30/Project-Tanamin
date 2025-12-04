@@ -145,43 +145,7 @@ namespace Project_Tanamin.app.view
                 this.Hide();
             };
 
-            // Button btnSoftDelete = new Button
-            // {
-            //     Text = "Hapus",
-            //     Width = 110,
-            //     Height = 35,
-            //     Top = card.Height - 70,
-            //     Left = 135,
-            //     BackColor = Color.IndianRed,
-            //     ForeColor = Color.White,
-            //     FlatStyle = FlatStyle.Flat
-            // };
-            // btnSoftDelete.Click += (s, e) =>
-            // {
-            //     var confirm = MessageBox.Show(
-            //         $"Apakah Anda yakin ingin menghapus stok produk '{produk.NamaProduk}'?",
-            //         "Konfirmasi Soft Delete",
-            //         MessageBoxButtons.YesNo,
-            //         MessageBoxIcon.Warning
-            //     );
-
-            //     if (confirm == DialogResult.Yes)
-            //     {
-            //         // lakukan soft delete (set stok = 0)
-            //         if (ctrlProduk.UpdateStok(produk.IdProduk, 0))
-            //         {
-            //             MessageBox.Show("Stok produk berhasil diset menjadi 0 (soft delete).", "Sukses");
-            //             LoadKatalog();
-            //         }
-            //         else
-            //         {
-            //             MessageBox.Show("Gagal mengubah stok produk.", "Error");
-            //         }
-            //     }
-            // };
-
             card.Controls.Add(btnEdit);
-            //card.Controls.Add(btnSoftDelete);
 
             return card;
         }
