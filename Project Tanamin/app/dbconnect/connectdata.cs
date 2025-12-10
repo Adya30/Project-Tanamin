@@ -15,8 +15,8 @@ namespace Project_Tanamin.app.dbconnect
         {
             db_host = "localhost";
             db_user = "postgres";
-            db_pass = "12345";
-            db_name = "ProjectPBO";
+            db_pass = ""; //password database
+            db_name = ""; //name database
 
             connstring = $"Host={db_host};Username={db_user};Password={db_pass};Database={db_name};";
         }
