@@ -22,34 +22,6 @@ namespace Project_Tanamin.app.view
             keranjang = keranjangBelanja;
             totalBelanja = keranjang.Sum(x => x.produk.HargaSatuan * x.jumlah);
             labeltotal.Text = totalBelanja.ToString("N0", CultureInfo.CurrentCulture);
-            labelkembalian.Text = "-";
-        }
-
-        private void textBoxnominal_TextChanged(object sender, EventArgs e)
-        {
-            var txt = textBoxnominal.Text?.Trim();
-            if (string.IsNullOrEmpty(txt))
-            {
-                labelkembalian.Text = "-";
-                return;
-            }
-
-            if (int.TryParse(txt, NumberStyles.AllowThousands | NumberStyles.AllowLeadingSign, CultureInfo.CurrentCulture, out int nominal))
-            {
-                if (nominal >= totalBelanja)
-                {
-                    int kembalian = nominal - totalBelanja;
-                    labelkembalian.Text = kembalian.ToString("N0", CultureInfo.CurrentCulture);
-                }
-                else
-                {
-                    labelkembalian.Text = "Nominal kurang!";
-                }
-            }
-            else
-            {
-                labelkembalian.Text = "-";
-            }
         }
 
         private void btnbri_Click(object sender, EventArgs e) => SetBank("BRI");

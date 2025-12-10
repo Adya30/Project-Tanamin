@@ -128,7 +128,7 @@ namespace Project_Tanamin.app.view
 
             var produk = editProduk ?? new m_produk();
             produk.NamaProduk = nama_produk.Text;
-            produk.StokProduk = editProduk != null ? editProduk.StokProduk : 0; // tetap stok lama / default 0
+            produk.StokProduk = editProduk != null ? editProduk.StokProduk : 0; 
             produk.HargaSatuan = hargaValue;
             produk.Deskripsi = deskripsi.Text;
             produk.FotoProduk = fotoByte;

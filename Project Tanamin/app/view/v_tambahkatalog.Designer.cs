@@ -92,7 +92,7 @@
             comboBoxjenisproduk.Items.AddRange(new object[] { "Obat Tanaman", "Pupuk" });
             comboBoxjenisproduk.Location = new Point(995, 400);
             comboBoxjenisproduk.Name = "comboBoxjenisproduk";
-            comboBoxjenisproduk.Size = new Size(690, 44);
+            comboBoxjenisproduk.Size = new Size(638, 44);
             comboBoxjenisproduk.TabIndex = 4;
             // 
             // btnbatal

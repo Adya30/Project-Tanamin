@@ -12,7 +12,8 @@ namespace Project_Tanamin.view
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-
+            password_register.UseSystemPasswordChar = true;
+            konfirmasi_password.UseSystemPasswordChar = true;
             linklogin.LinkClicked += Linkloginclick;
             controller = new c_user();
         }

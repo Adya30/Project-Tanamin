@@ -81,13 +81,11 @@ namespace Project_Tanamin.app.controller
                                 throw new Exception($"Stok produk ID {item.id_produk} tidak cukup");
                         }
                     }
-
                     tran.Commit();
                     return true;
                 }
             }
         }
-
 
         public bool ProsesPembayaran(int idUser,
             List<(m_produk produk, int jumlah)> keranjang,

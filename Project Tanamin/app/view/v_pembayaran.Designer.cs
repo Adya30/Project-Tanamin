@@ -36,7 +36,6 @@
             btnbca = new Button();
             btnbtn = new Button();
             btnjatim = new Button();
-            labelkembalian = new Label();
             textBoxnominal = new TextBox();
             textBoxdesa = new TextBox();
             btnbayar = new Button();
@@ -116,27 +115,14 @@
             btnjatim.UseVisualStyleBackColor = true;
             btnjatim.Click += btnjatim_Click;
             // 
-            // labelkembalian
-            // 
-            labelkembalian.AutoSize = true;
-            labelkembalian.BackColor = Color.Transparent;
-            labelkembalian.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelkembalian.ForeColor = Color.DarkGreen;
-            labelkembalian.Location = new Point(953, 482);
-            labelkembalian.Name = "labelkembalian";
-            labelkembalian.Size = new Size(35, 41);
-            labelkembalian.TabIndex = 8;
-            labelkembalian.Text = "0";
-            // 
             // textBoxnominal
             // 
             textBoxnominal.BorderStyle = BorderStyle.None;
             textBoxnominal.Font = new Font("Segoe UI", 15F);
-            textBoxnominal.Location = new Point(966, 274);
+            textBoxnominal.Location = new Point(976, 294);
             textBoxnominal.Name = "textBoxnominal";
-            textBoxnominal.Size = new Size(481, 40);
+            textBoxnominal.Size = new Size(802, 40);
             textBoxnominal.TabIndex = 10;
-            textBoxnominal.TextChanged += textBoxnominal_TextChanged;
             // 
             // textBoxdesa
             // 
@@ -170,9 +156,9 @@
             // textboxdetailalamat
             // 
             textboxdetailalamat.BorderStyle = BorderStyle.None;
-            textboxdetailalamat.Location = new Point(867, 722);
+            textboxdetailalamat.Location = new Point(867, 487);
             textboxdetailalamat.Name = "textboxdetailalamat";
-            textboxdetailalamat.Size = new Size(900, 256);
+            textboxdetailalamat.Size = new Size(900, 491);
             textboxdetailalamat.TabIndex = 16;
             textboxdetailalamat.Text = "";
             // 
@@ -187,7 +173,6 @@
             Controls.Add(btnbayar);
             Controls.Add(textBoxdesa);
             Controls.Add(textBoxnominal);
-            Controls.Add(labelkembalian);
             Controls.Add(btnjatim);
             Controls.Add(btnbtn);
             Controls.Add(btnbca);
@@ -211,7 +196,6 @@
         private Button btnbca;
         private Button btnbtn;
         private Button btnjatim;
-        private Label labelkembalian;
         private TextBox textBoxnominal;
         private TextBox textBoxdesa;
         private Button btnbayar;

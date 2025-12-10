@@ -16,6 +16,7 @@ namespace Project_Tanamin
             this.WindowState = FormWindowState.Maximized;
             userController = new c_user();
             linkdaftar.LinkClicked += LinkDaftar_Click;
+            login_password.UseSystemPasswordChar = true;
         }
 
         private void LinkDaftar_Click(object sender, LinkLabelLinkClickedEventArgs e)
