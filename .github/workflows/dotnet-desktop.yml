@@ -1,0 +1,91 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: "Project Tanamin.sln"
+      Test_Project_Path: ""
+      Wap_Project_Directory: ""
+      Wap_Project_Path: ""
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Install .NET
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # Setup MSBuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v2
+
+    # Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore "$env:Solution_Name"
+
+    # Build project
+    - name: Build project
+      run: dotnet build "$env:Solution_Name" --configuration $env:Configuration --no-restore
+
+    # Execute unit tests (akan dilewati jika tidak ada test project)
+    - name: Execute unit tests
+      run: |
+        if (Test-Path "$env:Test_Project_Path") {
+          dotnet test "$env:Test_Project_Path"
+        } else {
+          echo "No test project found. Skipping tests."
+        }
+
+    # Restore via MSBuild (tetap ada sesuai workflow awal)
+    - name: Restore the application
+      run: msbuild "$env:Solution_Name" /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # Decode pfx (akan dilewati jika tidak ada secret)
+    - name: Decode the pfx
+      if: ${{ secrets.Base64_Encoded_Pfx != '' }}
+      run: |
+        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
+        $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
+        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+
+    # Build package (akan dilewati jika tidak ada WAP project)
+    - name: Create the app package
+      if: env.Wap_Project_Path != ''
+      run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # Remove pfx
+    - name: Remove the pfx
+      if: env.Wap_Project_Directory != ''
+      run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx -ErrorAction Ignore
+
+    # Upload build artifacts
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: |
+          **/bin/Release/**
+          **/bin/Debug/**
