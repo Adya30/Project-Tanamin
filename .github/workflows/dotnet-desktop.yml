@@ -1,0 +1,58 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: "Project Tanamin.sln"
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Install .NET
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # Setup MSBuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v2
+
+    # Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore "$env:Solution_Name"
+
+    # Build project
+    - name: Build project
+      run: dotnet build "$env:Solution_Name" --configuration ${{ matrix.configuration }} --no-restore
+
+    # Execute unit tests (jika ada)
+    - name: Execute unit tests
+      run: dotnet test "$env:Solution_Name" --verbosity normal
+      continue-on-error: true
+
+    # Upload hasil build
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output-${{ matrix.configuration }}
+        path: |
+          **/bin/Release/**
+          **/bin/Debug/**
